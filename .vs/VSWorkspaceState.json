@@ -1,6 +1,10 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\Microsoft",
+    "\\Microsoft\\Windows 10",
+    "\\Microsoft\\Windows 10\\CAT I (High) 26"
   ],
+  "SelectedNode": "\\Microsoft\\Windows 10\\CAT I (High) 26\\high26.ps1",
   "PreviewInSolutionExplorer": false
 }
