@@ -1,18 +1,23 @@
 # V-220932 - Anonymous access to Named Pipes and Shares must be restricted
 
-$RestrictNullSessAccess = Get-ItemProperty -Path HKLM:\SYSTEM\CurrentControlSet\Services\LanManServer\Parameters -Name RestrictNullSessAccess 
+#$RestrictNullSessAccess = Get-ItemProperty -Path HKLM:\SYSTEM\CurrentControlSet\Services\LanManServer\Parameters -Name RestrictNullSessAccess 
+$RestrictNullSessAccess = Get-ItemProperty -Path HKLM:\SYSTEM\CurrentControlSet\Services\LanManServer\Parameters | select -ExpandProperty RestrictNullSessAccess
 
-if ( $RestrictNullSessAccess.RestrictNullSessAccess -eq 1)
+if ( $RestrictNullSessAccess -eq 1)
 {
-    Write-Host V-220932 result is $RestrictNullSessAccess.RestrictNullSessAccess
-    Write-Host
-    Write-Host "and"
-    Get-ItemProperty -Path HKLM:\SYSTEM\CurrentControlSet\Services\LanManServer\Parameters -Name RestrictNullSessAccess 
-    Write-Host "This is not a finding"
+    Write-Host "`n$line"
+    Write-Host V-220932 result is $RestrictNullSessAccess
+    Write-Host "`n$line"
+    Write-Host "This is not a finding" -ForegroundColor Green
+    Get-ItemProperty -Path HKLM:\SYSTEM\CurrentControlSet\Services\LanManServer\Parameters -Name RestrictNullSessAccess
+    
 }
 
 else
-{
-Get-ItemProperty -Path HKLM:\SYSTEM\CurrentControlSet\Services\LanManServer\Parameters -Name RestrictNullSessAccess 
-Write-Host V-220932 result is $RestrictNullSessAccess.RestrictNullSessAccess
-}
+    {
+        Write-Host "`n$line"
+        Write-Host V-220932 result is $RestrictNullSessAccess
+        Write-Host "`n$line"
+        Write-Host "This is a finding" -ForegroundColor Red
+        Get-ItemProperty -Path HKLM:\SYSTEM\CurrentControlSet\Services\LanManServer\Parameters -Name RestrictNullSessAccess
+    }
