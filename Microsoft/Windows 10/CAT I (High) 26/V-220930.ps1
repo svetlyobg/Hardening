@@ -4,9 +4,9 @@ $RestrictAnonymous = Get-ItemProperty -Path HKLM:\SYSTEM\CurrentControlSet\Contr
 
 if ( $RestrictAnonymous -eq 1)
 {
-    Write-Host
+    Write-Host "`n$line"
     Write-Host V-220930 result is $RestrictAnonymous
-    Write-Host    
+    Write-Host "`n$line"
     Write-Host "This is not a finding" -ForegroundColor Green
 
     Get-ItemProperty -Path HKLM:\SYSTEM\CurrentControlSet\Control\Lsa -Name RestrictAnonymous
@@ -14,9 +14,9 @@ if ( $RestrictAnonymous -eq 1)
 
 else 
 {
-    Write-Host
+    Write-Host "`n$line"
     Write-Host V-220930 result is $RestrictAnonymous
-    Write-Host
+    Write-Host "`n$line"
     Write-Host "This is a finding" -ForegroundColor Red
 
     Get-ItemProperty -Path HKLM:\SYSTEM\CurrentControlSet\Control\Lsa -Name RestrictAnonymous
