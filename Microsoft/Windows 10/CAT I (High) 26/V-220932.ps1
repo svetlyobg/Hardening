@@ -8,7 +8,7 @@ if ( $RestrictNullSessAccess.RestrictNullSessAccess -eq 1)
     Write-Host
     Write-Host "and"
     Get-ItemProperty -Path HKLM:\SYSTEM\CurrentControlSet\Services\LanManServer\Parameters -Name RestrictNullSessAccess 
-    Whrite-Host "This is not a finding"
+    Write-Host "This is not a finding"
 }
 
 else
