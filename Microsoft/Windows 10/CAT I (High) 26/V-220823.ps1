@@ -6,7 +6,7 @@ $fAllowToGetHelp = Get-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Win
     if ( $fAllowToGetHelp -eq 0)
 {
     Write-Host "`n$line"
-    Write-Host V-220718 result is $fAllowToGetHelp 
+    Write-Host V-220823 result is $fAllowToGetHelp 
     Write-Host "`n$line"
     Write-Host "This is not a finding" -ForegroundColor Green
     Get-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services'
@@ -16,7 +16,7 @@ $fAllowToGetHelp = Get-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Win
 else
     {
         Write-Host "`n$line"
-        Write-Host V-220718 result is $fAllowToGetHelp
+        Write-Host V-220823 result is $fAllowToGetHelp
         Write-Host "`n$line"
         Write-Host "This is a finding" -ForegroundColor Red
         Get-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services' 
