@@ -1,7 +1,7 @@
 ﻿# V-220827 - Autoplay must be turned off for non-volume devices
 # https://stigviewer.com/stig/windows_10/2020-10-15/finding/V-220827
 
-$NoAutoplayfornonVolume = Get-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Explorer\' | Select -ExpandProperty NoDataExecutionPrevention
+$NoAutoplayfornonVolume = Get-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Explorer\' | Select -ExpandProperty NoAutoplayfornonVolume
 
   if ( $NoAutoplayfornonVolume -eq 1)
 {
