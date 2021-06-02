@@ -1,4 +1,4 @@
-﻿# V-220838 - https://stigviewer.com/stig/windows_10/2021-03-10/finding/V-220838
+﻿# V-220838 - Turning off File Explorer heap termination on corruption must be disabled
 # https://stigviewer.com/stig/windows_10/2021-03-10/finding/V-220838
 
 $NoHeapTerminationOnCorruption = Get-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Explorer\' | Select -ExpandProperty NoHeapTerminationOnCorruption
