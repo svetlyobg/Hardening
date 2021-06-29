@@ -1,4 +1,4 @@
-﻿# V-70969 - Caching of logon credentials must be limited
+﻿# V-70969 - Enabling IE Bind to Object functionality must be present
 # https://stigviewer.com/stig/microsoft_excel_2016/2017-09-19/finding/V-70969
 
 
