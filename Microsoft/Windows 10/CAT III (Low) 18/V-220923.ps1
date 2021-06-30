@@ -5,6 +5,9 @@
 $CachedLogonsCount = Get-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\' | Select -ExpandProperty CachedLogonsCount
 
 function fCachedLogonsCount
+
+$CachedLogonsCount = Get-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\' | Select -ExpandProperty CachedLogonsCount
+
 {
 
                     if ( $CachedLogonsCount -gt 0 -and $CachedLogonsCount -lt 11 )
