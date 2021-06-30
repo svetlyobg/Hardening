@@ -4,7 +4,6 @@
 $NoToastApplicationNotificationOnLockScreen = Get-ItemProperty -Path 'HKCU:\SOFTWARE\Policies\Microsoft\Windows\CurrentVersion\PushNotifications\' | Select -ExpandProperty NoToastApplicationNotificationOnLockScreen
 
 function check
-
 $NoToastApplicationNotificationOnLockScreen = Get-ItemProperty -Path 'HKCU:\SOFTWARE\Policies\Microsoft\Windows\CurrentVersion\PushNotifications\' | Select -ExpandProperty NoToastApplicationNotificationOnLockScreen
 
 {
