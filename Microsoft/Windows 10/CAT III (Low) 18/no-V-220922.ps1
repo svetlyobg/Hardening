@@ -5,6 +5,8 @@ $LegalNoticeCaption = Get-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\C
 
 function LegalNoticeCaptionCheck
 
+$LegalNoticeCaption = Get-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\' | Select -ExpandProperty LegalNoticeCaption
+
 {
 
       if ( $LegalNoticeCaption -eq 1 )
