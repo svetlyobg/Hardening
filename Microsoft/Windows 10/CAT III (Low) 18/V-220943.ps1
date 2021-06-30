@@ -4,6 +4,7 @@
 $ProtectionMode = Get-ItemProperty -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\' | Select -ExpandProperty ProtectionMode
 
 function fProtectionMode
+$ProtectionMode = Get-ItemProperty -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\' | Select -ExpandProperty ProtectionMode
 
     {
          if ( $ProtectionMode -eq 1 )
