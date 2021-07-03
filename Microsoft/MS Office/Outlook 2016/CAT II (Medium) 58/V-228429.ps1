@@ -55,7 +55,7 @@ function fcheckreg
         if ( $regvalue -eq 1 )
         {
             Write-Host "`n$line"
-            Write-Host  V-V-228429 result is $regvalue 
+            Write-Host  V-228429 result is $regvalue 
             Write-Host "`n$line"
             Write-Host "This is not a finding" -ForegroundColor Green
             Get-ItemProperty -Path $path
@@ -66,7 +66,7 @@ function fcheckreg
     else
             {
                 Write-Host "`n$line"
-                Write-Host  V-V-228429 result is $regvalue
+                Write-Host  V-228429 result is $regvalue
                 Write-Host "`n$line"
                 Write-Host "This is a finding" -ForegroundColor Red
                 Get-ItemProperty -Path $path
