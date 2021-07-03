@@ -18,17 +18,16 @@ $path15main = 'HKCU:\Software\Policies\Microsoft\Office\15.0\'
 $path16main = 'HKCU:\Software\Policies\Microsoft\Office\16.0\'
 
 
-if ("Test-Path $path15main" -like "True")
-{$pathmain = $path15main 
+if ("Test-Path $path16main" -like "True")
+{$pathmain = $path16main 
     Write-Host $pathmain
-    $path = $path15
+    $path = $path16
     fcreate
 
 }
-else {$pathmain = $path16main
-    Write-Host $pathmain
+else {$pathmain = $path15main
      Write-Host $pathmain
-    $path = $path16
+    $path = $path15
     fcreate
 }
 
