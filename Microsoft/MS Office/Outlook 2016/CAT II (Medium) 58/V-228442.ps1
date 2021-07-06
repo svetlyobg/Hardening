@@ -13,15 +13,31 @@ $path = 'HKCU:\Software\Policies\Microsoft\Office\16.0\outlook\security'
 $regname = 'FileExtensionsRemoveLevel2'
 $regvalue = Get-ItemProperty -Path $path | Select -ExpandProperty $regname
 
+if (-not $regvalue)
+
+{
+Write-Host not
+}
+
+else {
+    Write-Host exists
+}
+
+<#
+
 try 
 {
     $regvalue
+    Start-Sleep -Seconds 5
 }
 
 catch 
 {
     Write-Host Error
+    Start-Sleep -Seconds 5
 }
+
+#>
 
 <#
 
