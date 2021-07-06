@@ -12,28 +12,11 @@
     https://stigviewer.com/stig/microsoft_outlook_2016/2020-09-25/finding/V-228429
 #>
 
-$path16 = 'HKCU:\Software\Policies\Microsoft\Office\16.0\outlook\options\pubcal'
-$path15 = 'HKCU:\Software\Policies\Microsoft\Office\15.0\outlook\options\pubcal'
-$path15main = 'HKCU:\Software\Policies\Microsoft\Office\15.0\'
-$path16main = 'HKCU:\Software\Policies\Microsoft\Office\16.0\'
-
-
-if ("Test-Path $path16main" -like "True")
-{$pathmain = $path16main 
-    Write-Host $pathmain
-    $path = $path16
-    fcreate
-
-}
-else {$pathmain = $path15main
-     Write-Host $pathmain
-    $path = $path15
-    fcreate
-}
-
-$regname = 'DisableOfficeOnline'
-$regvalue = Get-ItemProperty -Path $path | Select -ExpandProperty $regname
-
+#$path16 = 'HKCU:\Software\Policies\Microsoft\Office\16.0\outlook\options\pubcal'
+#$path15 = 'HKCU:\Software\Policies\Microsoft\Office\15.0\outlook\options\pubcal'
+#$path15main = 'HKCU:\Software\Policies\Microsoft\Office\15.0\'
+#$path16main = 'HKCU:\Software\Policies\Microsoft\Office\16.0\'
+$path = 'HKCU:\Software\Policies\Microsoft\Office\16.0\outlook\options\pubcal'
 
 function fcheckpath
 {Test-Path $path}
@@ -41,7 +24,7 @@ function fcheckpath
 function fcreate
 {
         Write-Host NoPathFound -ForegroundColor Red
-        New-Item -Path $path -ItemType Directory
+        New-Item -Path $path -ItemType Directory -Force
         Write-Host Path Created -ForegroundColor Green
         New-ItemProperty -Path $path -Name $regname -Value 1 -PropertyType DWORD -Force
         Write-Host Registry Created and Set Up -ForegroundColor Green
@@ -73,6 +56,26 @@ function fcheckreg
                 Start-Sleep -Seconds 5
             } 
     }
+
+
+if ("Test-Path $path" -like "True")
+{
+    Write-Host $path
+    fcreate
+
+}
+
+else {
+        Write-Host $path
+        fcreate
+}
+
+
+$regname = 'DisableOfficeOnline'
+$regvalue = Get-ItemProperty -Path $path | Select -ExpandProperty $regname
+
+
+
     
 if (fcheckpath -like 'True' )
 {fcreate
