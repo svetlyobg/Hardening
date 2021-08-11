@@ -6,7 +6,7 @@
     This policy setting controls whether scripts can run in Outlook forms in which the script and layout are contained within the message. If you enable this policy setting, scripts can run in one-off Outlook forms. If you disable or do not configure this policy setting, Outlook does not run scripts in forms in which the script and the layout are contained within the message. Important: This policy setting only applies if the "Outlook Security Mode" policy setting under "Microsoft Outlook 2016\Security\Security Form Settings" is configured to "Use Outlook Security Group Policy." 
 
 .LINK
-    https://stigviewer.com/stig/microsoft_outlook_2016/2020-09-25/finding/ V-228443
+    https://stigviewer.com/stig/microsoft_outlook_2016/2020-09-25/finding/V-228443
 #>
 
 $path = 'HKCU:\Software\Policies\Microsoft\Office\16.0\outlook\security'
