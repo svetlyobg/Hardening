@@ -1,0 +1,5 @@
+rem V-228471 - User Entries to Server List must be disallowed
+rem https://www.stigviewer.com/stig/microsoft_outlook_2016/2020-09-25/finding/V-228471
+rem This policy setting controls whether Outlook users can add entries to the list of SharePoint servers when establishing a meeting workspace. If you enable this policy setting, you can choose between two options to determine whether Outlook users can add entries to the published server list: - Publish default, allow others. This option is the default configuration in Outlook. - Publish default, disallow others. This option prevents users from adding servers to the default published server list. If you disable or do not configure this policy setting, when users create a meeting workspace, they can choose a server from a default list provided by administrators or manually enter the address of a server that is not listed. This is the equivalent of Enabled -- Publish default, allow others.
+
+reg add HKCU\Software\Policies\Microsoft\Office\16.0\meetings\profile /v ServerUI /t REG_DWORD /d 2 /f
