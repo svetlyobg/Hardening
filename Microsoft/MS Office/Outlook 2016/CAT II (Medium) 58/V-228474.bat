@@ -1,0 +1,5 @@
+rem V-228474 - Outlook minimum encryption key length settings must be set
+rem https://www.stigviewer.com/stig/microsoft_outlook_2016/2020-09-25/finding/V-228474
+rem This policy setting allows you to set the minimum key length for an encrypted e-mail message. If you enable this policy setting, you may set the minimum key length for an encrypted e-mail message. Outlook will display a warning dialog if the user tries to send a message using an encryption key that is below the minimum encryption key value set. The user can still choose to ignore the warning and send using the encryption key originally chosen. If you disable or do not configure this policy setting, a dialog warning will be shown to the user if the user attempts to send a message using encryption. The user can still choose to ignore the warning and send using the encryption key originally chosen.
+
+reg add HKCU\Software\Policies\Microsoft\Office\16.0\outlook\security /v MinEncKey /t REG_DWORD /d 168 /f
