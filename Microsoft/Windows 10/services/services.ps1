@@ -67,10 +67,77 @@ Set-Service -Name ClipSVC -StartupType Manual -Status Stopped -Verbose #Running
 Write-Host "The CNG key isolation service is hosted in the LSA process"
 Set-Service -Name KeyIso -StartupType Manual -Status Stopped -Verbose #Running
 
+Write-Host "Supports System Event Notification Service, provides automatic distribution of events to subscribing Component Object Model (COM)"
+Set-Service -Name EventSystem -StartupType Auto -Status Running -Verbose
 
+Write-Host "Manages the configuration and tracking of Component Object Model (COM)+-based components"
+Set-Service -Name COMSysApp -StartupType Manual -Status Stopped -Verbose #Running
 
+Write-Host "This service is used for Connected Devices and Universal Glass scenarios"
+Set-Service -Name CDPSvc -StartupType Autp -Status Running -Verbose #Stopped
 
+Write-Host "The Connected User Experiences and Telemetry service enables features that support in-application and connected user experiences"
+Set-Service -Name DiagTrack -StartupType Auto -Status Running -Verbose
 
+Write-Host "Indexes contact data for fast contact searching. If you stop or disable this service, contacts might be missing from your search results"
+Set-Service -Name PimIndexMaintenanceSvc -StartupType Disabled -Status Stopped -Verbose
+
+Write-Host "Manages communication between system components"
+Set-Service -Name CoreMessagingRegistrar -StartupType Auto -Status Running -Verbose
+
+Write-Host "Provides secure storage and retrieval of credentials to users, applications and security service packages"
+Set-Service -Name VaultSvc -StartupType Manual -Status Stopped -Verbose #Running
+
+Write-Host "Provides 3 management services: Catalog Database Service, confirms the signatures of Windows files and allows new programs to be installed"
+Set-Service -Name CryptSvc -StartupType Auto -Status Running -Verbose
+
+Write-Host "Provides data brokering between applications"
+Set-Service -Name DsSvc -StartupType Manual -Status Stopped -Verbose #Running
+
+Write-Host "Network data usage, data limit, restrict background data, metered networks"
+Set-Service -Name DusmSvc -StartupType Auto -Status Running -Verbose
+
+Write-Host "The DCOMLAUNCH service launches COM and DCOM servers in response to object activation requests"
+Set-Service -Name DcomLaunch -StartupType Auto -Status Running -Verbose
+
+Write-Host "Performs content delivery optimization tasks"
+Set-Service -Name DoSvc -StartupType Auto -Status Stopped -Verbose #Running
+
+Write-Host "Enables pairing between the system and wired or wireless devices"
+Set-Service -Name DeviceAssociationService -StartupType Manual -Status Stopped -Verbose #Running
+
+Write-Host "Enables a computer to recognize and adapt to hardware changes with little or no user input"
+Set-Service -Name DeviceInstall -StartupType Manual -Status Stopped -Verbose #Running
+
+Write-Host "Performs Device Enrollment Activities for Device Management"
+Set-Service -Name DmEnrollmentSvc -StartupType Manual -Status Stopped -Verbose #Running
+
+Write-Host "Enables the detection, download and installation of device-related software. If this service is disabled, devices may be configured with outdated"
+Set-Service -Name DsmSvc -StartupType Manual -Status Stopped -Verbose #Running
+
+Write-Host "Device Discovery and Connecting"
+Set-Service -Name DevicesFlowUserSvc -StartupType Manual -Status Stopped -Verbose #Running
+
+Write-Host "Enables apps to discover devices with a backgroud task"
+Set-Service -Name DevQueryBroker -StartupType Manual -Status Stopped -Verbose #Running
+
+Write-Host "Registers and updates IP addresses and DNS records for this computer"
+Set-Service -Name Dhcp -StartupType Auto -Status Running -Verbose
+
+Write-Host "Executes diagnostic actions for troubleshooting support"
+Set-Service -Name diagsvc -StartupType Manual -Status Stopped -Verbose #Running
+
+Write-Host "The Diagnostic Policy Service enables problem detection, troubleshooting and resolution for Windows components"
+Set-Service -Name DPS -StartupType Auto -Status Running -Verbose
+
+Write-Host "The Diagnostic Service Host is used by the Diagnostic Policy Service to host diagnostics that need to run in a Local Service context"
+Set-Service -Name WdiServiceHost -StartupType Disabled -Status Stopped -Verbose
+
+Write-Host "The Diagnostic System Host is used by the Diagnostic Policy Service to host diagnostics that need to run in a Local System context"
+Set-Service -Name WdiSystemHost -StartupType Disabled -Status Stopped -Verbose
+
+Write-Host "Maintains links between NTFS files within a computer or across computers in a network"
+Set-Service -Name TrkWks -StartupType Auto -Status Running -Verbose
 
 
 
