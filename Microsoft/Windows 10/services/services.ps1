@@ -40,6 +40,35 @@ Set-Service -Name BFE -StartupType Auto -Status Running -Verbose
 Write-Host "Allows BitLocker to prompt users for actions related to drives when accessed and supports unlocking of BL-protected drives automatically..."
 Set-Service -Name BDESVC -StartupType Manual -Status Stopped -Verbose #Running
 
+Write-Host "The WBENGINE service is used by Windows Backup to perform backup and recovery operations"
+Set-Service -Name wbengine -StartupType Disabled -Status Stopped -Verbose
+
+Write-Host "Enables wireless Bluetooth headsets to run on this computer"
+Set-Service -Name BthHFSrv -StartupType Disabled -Status Stopped -Verbose
+
+Write-Host "The Bluetooth service supports discovery and association of remote Bluetooth devices"
+Set-Service -Name bthserv -StartupType Disabled -Status Stopped -Verbose
+
+Write-Host "This service caches network content from peers on the local subnet"
+Set-Service -Name PeerDistSvc -StartupType Disabled -Status Stopped -Verbose
+
+Write-Host "Provides facilities for managing UWP apps access to app capabilities as well as checking an app’s access to specific app capabilities"
+Set-Service -Name camsvc -StartupType Manual -Status Stopped -Verbose #Running
+
+Write-Host "This user service is used for Connected Devices Platform scenarios"
+Set-Service -Name CDPUserSvc -StartupType Disabled -Status Stopped -Verbose
+
+Write-Host "Copies user certificates and root certificates from smart cards into the current user’s certificate store, detects when a smart card is inserted"
+Set-Service -Name CertPropSvc -StartupType Manual -Status Stopped -Verbose #Running
+
+Write-Host "Provides infrastructure support for the Microsoft Store"
+Set-Service -Name ClipSVC -StartupType Manual -Status Stopped -Verbose #Running
+
+Write-Host "The CNG key isolation service is hosted in the LSA process"
+Set-Service -Name KeyIso -StartupType Manual -Status Stopped -Verbose #Running
+
+
+
 
 
 
