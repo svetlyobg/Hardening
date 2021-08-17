@@ -52,13 +52,13 @@ Set-Service -Name bthserv -StartupType Disabled -Status Stopped -Verbose
 Write-Host "This service caches network content from peers on the local subnet"
 Set-Service -Name PeerDistSvc -StartupType Disabled -Status Stopped -Verbose
 
-Write-Host "Provides facilities for managing UWP apps access to app capabilities as well as checking an app’s access to specific app capabilities"
+Write-Host "Provides facilities for managing UWP apps access to app capabilities as well as checking an appï¿½s access to specific app capabilities"
 Set-Service -Name camsvc -StartupType Manual -Status Stopped -Verbose #Running
 
 Write-Host "This user service is used for Connected Devices Platform scenarios"
 Set-Service -Name CDPUserSvc -StartupType Disabled -Status Stopped -Verbose
 
-Write-Host "Copies user certificates and root certificates from smart cards into the current user’s certificate store, detects when a smart card is inserted"
+Write-Host "Copies user certificates and root certificates from smart cards into the current userï¿½s certificate store, detects when a smart card is inserted"
 Set-Service -Name CertPropSvc -StartupType Manual -Status Stopped -Verbose #Running
 
 Write-Host "Provides infrastructure support for the Microsoft Store"
@@ -138,6 +138,39 @@ Set-Service -Name WdiSystemHost -StartupType Disabled -Status Stopped -Verbose
 
 Write-Host "Maintains links between NTFS files within a computer or across computers in a network"
 Set-Service -Name TrkWks -StartupType Auto -Status Running -Verbose
+
+Write-Host "Coordinates transactions that span multiple resource managers, such as databases, message queues, and file systems"
+Set-Service -Name MSDTC -StartupType Auto -Status Running -Verbose
+
+Write-Host "WAP Push Message Routing Service"
+Set-Service -Name dmwappushservice -StartupType Disabled -Status Stopped -Verbose
+
+Write-Host "The DNS Client service (dnscache) caches Domain Name System (DNS) names and registers the full computer name for this computer"
+Set-Service -Name Dnscache -StartupType Auto -Status Running -Verbose
+
+Write-Host "Windows service for application access to downloaded maps. This service is started on-demand by application accessing downloaded maps"
+Set-Service -Name MapsBroker -StartupType Disabled -Status Stopped -Verbose
+
+Write-Host "The Embedded Mode service enables scenarios related to Background Applications"
+Set-Service -Name embeddedmode -StartupType Manual -Status Stopped -Verbose #Running
+
+Write-Host "Provides the core file encryption technology used to store encrypted files on NTFS file system volumes"
+Set-Service -Name EFS -StartupType Manual -Status Stopped -Verbose #Running
+
+Write-Host "Enables enterprise application management"
+Set-Service -Name EntAppSvc -StartupType Manual -Status Stopped -Verbose #Running
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
