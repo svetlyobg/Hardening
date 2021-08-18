@@ -160,6 +160,77 @@ Set-Service -Name EFS -StartupType Manual -Status Stopped -Verbose #Running
 Write-Host "Enables enterprise application management"
 Set-Service -Name EntAppSvc -StartupType Manual -Status Stopped -Verbose #Running
 
+Write-Host "Enables enterprise application management"
+Set-Service -Name EntAppSvc -StartupType Manual -Status Stopped -Verbose #Running
+
+Write-Host "Provides network authentication in such scenarios as 802.1x wired and wireless, VPN, and Network Access Protection (NAP)"
+Set-Service -Name EapHost -StartupType Disabled -Status Stopped -Verbose
+
+Write-Host "The Fax service, a Telephony API (TAPI)-compliant service, provides fax capabilities from users’ computers"
+Set-Service -Name Fax -StartupType Disabled -Status Stopped -Verbose
+
+Write-Host "Protects user files from accidental loss by copying them to a backup location"
+Set-Service -Name fhsvc -StartupType Disabled -Status Stopped -Verbose
+
+Write-Host "The FDPHOST service hosts the Function Discovery (FD) network discovery providers"
+Set-Service -Name fdPHost -StartupType Disabled -Status Stopped -Verbose
+
+Write-Host "Publishes this computer and resources attached to this computer so they can be discovered over the network"
+Set-Service -Name FDResPub -StartupType Disabled -Status Stopped -Verbose
+
+Write-Host "This service monitors the current location of the system and manages geofences (a geographical location with associated events)"
+Set-Service -Name lfsvc -StartupType Disabled -Status Stopped -Verbose
+
+Write-Host "Graphics performance monitor service"
+Set-Service -Name GraphicsPerfSvc -StartupType Manual -Status Stopped -Verbose #Running
+
+Write-Host "The service is responsible for applying settings configured by administrators for the computer and users through the Group Policy component"
+Set-Service -Name gpsvc -StartupType Auto -Status Running -Verbose
+
+Write-Host "Makes local computer changes associated with configuration and maintenance of the homegroup-joined computer"
+Set-Service -Name HomeGroupListener -StartupType Disabled -Status Stopped -Verbose
+
+Write-Host "Performs networking tasks associated with configuration and maintenance of homegroups"
+Set-Service -Name HomeGroupProvider -StartupType Disabled -Status Stopped -Verbose
+
+Write-Host "Activates and maintains the use of hot buttons on keyboards, remote controls, and other multimedia devices"
+Set-Service -Name hidserv -StartupType Disabled -Status Stopped -Verbose
+
+Write-Host "Graphics performance monitor service"
+Set-Service -Name HvHost -StartupType Manual -Status Stopped -Verbose #Running
+
+Write-Host "Provides an interface for the Hyper-V hypervisor to provide per-partition performance counters to the host operating system"
+Set-Service -Name GraphicsPerfSvc -StartupType Manual -Status Stopped -Verbose #Running
+
+Write-Host "Provides a mechanism to exchange data between the virtual machine and the operating system running on the physical computer"
+Set-Service -Name vmickvpexchange -StartupType Manual -Status Stopped -Verbose #Running
+
+Write-Host "Provides an interface for the Hyper-V host to interact with specific services running inside the virtual machine"
+Set-Service -Name vmicguestinterface -StartupType Manual -Status Running -Verbose #Stopped
+
+Write-Host "Provides a mechanism to shut down the operating system of this virtual machine from the management interfaces on the physical computer"
+Set-Service -Name vmicshutdown -StartupType Manual -Status Running -Verbose #Stopped
+
+Write-Host "Monitors the state of this virtual machine by reporting a heartbeat at regular intervals"
+Set-Service -Name vmicshutdown -StartupType Manual -Status Running -Verbose #Stopped
+
+Write-Host "Provides a mechanism to manage virtual machine with PowerShell via VM session without a virtual network"
+Set-Service -Name vmicvmsession -StartupType Manual -Status Running -Verbose #Stopped
+
+Write-Host "Provides a platform for communication between the virtual machine and the operating system running on the physical computer"
+Set-Service -Name vmicrdv -StartupType Manual -Status Running -Verbose #Stopped
+
+Write-Host "Synchronizes the system time of this virtual machine with the system time of the physical computer"
+Set-Service -Name vmictimesync -StartupType Manual -Status Running -Verbose #Stopped
+
+
+
+
+
+
+
+
+
 
 
 
