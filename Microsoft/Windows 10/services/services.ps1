@@ -286,6 +286,262 @@ Set-Service -Name MSiSCSI -StartupType Disabled -Status Stopped -Verbose
 Write-Host "Provides process isolation for cryptographic keys used to authenticate to a user's associated identity providers"
 Set-Service -Name NgcSvc -StartupType Disabled -Status Stopped -Verbose
 
+Write-Host "Manages software-based volume shadow copies taken by the Volume Shadow Copy service"
+Set-Service -Name swprv -StartupType Manual -Status Stopped -Verbose #Running
+
+Write-Host "Host service for the Microsoft Storage Spaces management provider. If this service is stopped or disabled, Storage Spaces cannot be managed"
+Set-Service -Name smphost -StartupType Manual -Status Stopped -Verbose #Running
+
+Write-Host "Routes messages based on rules to appropriate clients"
+Set-Service -Name SmsRouter -StartupType Disabled -Status Stopped -Verbose
+
+Write-Host "Signal aggregator service, that evaluates signals based on time, network, geolocation, bluetooth and cdf factors"
+Set-Service -Name NaturalAuthentication -StartupType Manual -Status Stopped -Verbose #Running
+
+Write-Host "Provides ability to share TCP ports over the net.tcp protocol"
+Set-Service -Name NetTcpPortSharing -StartupType Disabled -Status Stopped -Verbose
+
+Write-Host "Maintains a secure channel between this computer and the domain controller for authenticating users and services"
+Set-Service -Name Netlogon -StartupType Manual -Status Stopped -Verbose #Running
+
+Write-Host "Brokers connections that allow Windows Store Apps to receive notifications from the internet"
+Set-Service -Name NcbService -StartupType Disabled -Status Stopped -Verbose
+
+Write-Host "Network Connected Devices Auto-Setup service monitors and installs qualified devices that connect to a qualified network"
+Set-Service -Name NcdAutoSetup -StartupType Disabled -Status Stopped -Verbose
+
+Write-Host "Manages objects in the Network and Dial-Up Connections folder, in which you can view both local area network and remote connection"
+Set-Service -Name Netman -StartupType Manual -Status Stopped -Verbose #Running
+
+Write-Host "Provides DirectAccess status notification for UI components"
+Set-Service -Name NcaSvc -StartupType Disabled -Status Stopped -Verbose
+
+Write-Host "Identifies, collects & stores properties for networks to which computer has connected, notifies applications when properties change"
+Set-Service -Name netprofm -StartupType Manual -Status Stopped -Verbose #Running
+
+Write-Host "This service delivers network notifications (e.g. interface addition/deleting etc) to user mode clients"
+Set-Service -Name nsi -StartupType Auto -Status Running -Verbose
+
+Write-Host "Performs maintenance activities on the Offline Files cache, responds to user logon and logoff events, implements the internals of the public API"
+Set-Service -Name CscService -StartupType Disabled -Status Stopped -Verbose
+
+Write-Host "Helps the computer run more efficiently by optimizing files on storage drives"
+Set-Service -Name defragsvc -StartupType Manual -Status Stopped -Verbose #Running
+
+Write-Host "Manages payments and Near Field Communication"
+Set-Service -Name SEMgrSvc -StartupType Disabled -Status Stopped -Verbose
+
+Write-Host "Enables serverless peer name resolution over the Internet using the Peer Name Resolution Protocol (PNRP)"
+Set-Service -Name PNRPsvc -StartupType Disabled -Status Stopped -Verbose
+
+Write-Host "Enables multi-party communication using Peer-to-Peer Grouping.  If disabled, some applications, such as HomeGroup, may not function"
+Set-Service -Name p2psvc -StartupType Disabled -Status Stopped -Verbose #Running
+
+Write-Host "Provides identity services for the Peer Name Resolution Protocol (PNRP) and Peer-to-Peer Grouping services"
+Set-Service -Name p2pimsvc -StartupType Disabled -Status Stopped -Verbose #Running
+
+Write-Host "Enables remote users and 64-bit processes to query performance counters provided by 32-bit DLLs"
+Set-Service -Name PerfHost -StartupType Manual -Status Stopped -Verbose #Running
+
+Write-Host "Collects performance data from local/remote computers based on preconfigured schedule parameters, then writes data to a log/triggers alerts"
+Set-Service -Name pla -StartupType Manual -Status Stopped -Verbose #Running
+
+Write-Host "Manages the telephony state on the device"
+Set-Service -Name PhoneSvc -StartupType Disabled -Status Stopped -Verbose
+
+Write-Host "Enables a computer to recognize and adapt to hardware changes with little or no user input"
+Set-Service -Name PlugPlay -StartupType Manual -Status Stopped -Verbose #Running
+
+Write-Host "This service publishes a machine name using the Peer Name Resolution Protocol. Configuration is managed via the netsh context 'p2p pnrp peer'"
+Set-Service -Name PNRPAutoReg -StartupType Disabled -Status Stopped -Verbose
+
+Write-Host "Enforces group policy for removable mass-storage devices, enables multimedia applications to transfer/synchronize content to removable storage"
+Set-Service -Name WPDBusEnum -StartupType Manual -Status Stopped -Verbose #Running
+
+Write-Host "Manages power policy and power policy notification delivery"
+Set-Service -Name Power -StartupType Auto -Status Running -Verbose
+
+Write-Host "This service spools print jobs and handles interaction with the printer"
+Set-Service -Name Spooler -StartupType Disabled -Status Stopped -Verbose
+
+Write-Host "Print Workflow"
+Set-Service -Name PrintWorkflow -StartupType Disabled -Status Stopped -Verbose
+
+Write-Host "This service opens custom printer dialog boxes and handles notifications from a remote print server or a printer"
+Set-Service -Name PrintNotify -StartupType Disabled -Status Stopped -Verbose
+
+Write-Host "Provides support for viewing, sending and deletion of system-level problem reports for the Problem Reports and Solutions control panel"
+Set-Service -Name PcaSvc -StartupType Disabled -Status Stopped -Verbose
+
+Write-Host "Program Compatibility Assistant monitors programs installed/run and detects known compatibility problems"
+Set-Service -Name wercplsupport -StartupType Disabled -Status Stopped -Verbose
+
+Write-Host "Quality Windows Audio Video Experience (qWave) is a networking platform for Audio Video (AV) streaming applications on IP home networks"
+Set-Service -Name QWAVE -StartupType Disabled -Status Stopped -Verbose
+
+Write-Host "Radio Management and Airplane Mode Service"
+Set-Service -Name RmSvc -StartupType Disabled -Status Stopped -Verbose
+
+Write-Host "Creates a connection to a remote network whenever a program references a remote DNS or NetBIOS name or address"
+Set-Service -Name RasAuto -StartupType Disabled -Status Stopped -Verbose
+
+Write-Host "Manages dial-up and virtual private network (VPN) connections from this computer to the Internet or other remote networks"
+Set-Service -Name RasMan -StartupType Disabled -Status Stopped -Verbose
+
+Write-Host "Supports all Remote Desktop Services/related configuration/session maintenance activities that require SYSTEM context"
+Set-Service -Name SessionEnv -StartupType Disabled -Status Stopped -Verbose #Running
+
+Write-Host "Allows users to connect interactively to a remote computer. Remote Desktop and Remote Desktop Session Host Server depend on this service"
+Set-Service -Name TermService -StartupType Disabled -Status Stopped -Verbose #Running
+
+Write-Host "Allows the redirection of Printers/Drives/Ports for RDP connections"
+Set-Service -Name UmRdpService -StartupType Disabled -Status Stopped -Verbose #Running
+
+Write-Host "In Windows 2003 and earlier versions of Windows, the Remote Procedure Call (RPC) Locator service manages the RPC name service database"
+Set-Service -Name RpcLocator -StartupType Disabled -Status Stopped -Verbose
+
+Write-Host "The RPCSS service is the Service Control Manager for COM and DCOM servers"
+Set-Service -Name RpcSs -StartupType Auto -Status Running -Verbose
+
+Write-Host "Enables remote users to modify registry settings on this computer"
+Set-Service -Name RemoteRegistry -StartupType Disabled -Status Stopped -Verbose #Running
+
+Write-Host "The Retail Demo service controls device activity while the device is in retail demo mode"
+Set-Service -Name RetailDemo -StartupType Disabled -Status Stopped -Verbose
+
+Write-Host "Offers routing services to businesses in local area and wide area network environments"
+Set-Service -Name RemoteAccess -StartupType Disabled -Status Stopped -Verbose
+
+Write-Host "Resolves RPC interfaces identifiers to transport endpoints"
+Set-Service -Name RpcEptMapper -StartupType Auto -Status Running -Verbose
+
+Write-Host "Enables starting processes under alternate credentials"
+Set-Service -Name seclogon -StartupType Manual -Status Stopped -Verbose #Running
+
+Write-Host "Provides support for the Secure Socket Tunneling Protocol (SSTP) to connect to remote computers using VPN"
+Set-Service -Name SstpSvc -StartupType Manual -Status Stopped -Verbose #Running
+
+Write-Host "The startup of this service signals other services that the Security Accounts Manager (SAM) is ready to accept requests"
+Set-Service -Name SamSs -StartupType Auto -Status Running -Verbose
+
+Write-Host "The Security Center (wscsvc) service monitors and reports security health settings on the computer"
+Set-Service -Name wscsvc -StartupType Manual -Status Stopped -Verbose #Running
+
+Write-Host "Delivers data from a variety of sensors"
+Set-Service -Name SensorDataService -StartupType Disabled -Status Stopped -Verbose
+
+Write-Host "Monitors various sensors in order to expose data and adapt to system and user state"
+Set-Service -Name SensrSvc -StartupType Disabled -Status Stopped -Verbose
+
+Write-Host "A service for sensors that manages different sensors’ functionality. Manages Simple Device Orientation (SDO) and History for sensors"
+Set-Service -Name SensorService -StartupType Disabled -Status Stopped -Verbose
+
+Write-Host "Supports file, print, and named-pipe sharing over the network for this computer. If this service is stopped, these functions will be unavailable"
+Set-Service -Name LanmanServer -StartupType Disabled -Status Stopped -Verbose #Running
+
+Write-Host "Manages profiles and accounts on a SharedPC configured device"
+Set-Service -Name shpamsvc -StartupType Disabled -Status Stopped -Verbose
+
+Write-Host "Provides notifications for AutoPlay hardware events"
+Set-Service -Name ShellHWDetection -StartupType Auto -Status Running -Verbose
+
+Write-Host "Supports the following TCP/IP services: Character Generator, Daytime, Discard, Echo, and Quote of the Day"
+Set-Service -Name simptcp -StartupType Disabled -Status Stopped -Verbose
+
+Write-Host "Creates software device nodes for all smart card readers accessible to a given session"
+Set-Service -Name ScDeviceEnum -StartupType Disabled -Status Stopped -Verbose
+
+Write-Host "Allows the system to be configured to lock the user desktop upon smart card removal"
+Set-Service -Name SCPolicySvc -StartupType Disabled -Status Stopped -Verbose
+
+Write-Host "Manages access to smart cards read by this computer"
+Set-Service -Name SCardSvr -StartupType Disabled -Status Stopped -Verbose
+
+Write-Host "Enables Simple Network Management Protocol (SNMP) requests to be processed by this computer"
+Set-Service -Name SNMP -StartupType Disabled -Status Stopped -Verbose
+
+Write-Host "Receives trap messages SNMP agents and forwards the messages to SNMP management programs running on this computer"
+Set-Service -Name SNMPTRAP -StartupType Disabled -Status Stopped -Verbose
+
+Write-Host "Enables the download, installation and enforcement of digital licenses for Windows and Windows applications"
+Set-Service -Name sppsvc -StartupType Auto -Status Stopped -Verbose #Running
+
+Write-Host "This service is used for Spatial Perception scenarios"
+Set-Service -Name SharedRealitySvc -StartupType Disabled -Status Stopped -Verbose
+
+Write-Host "Verifies potential file system corruptions"
+Set-Service -Name svsvc -StartupType Manual -Status Stopped -Verbose #Running
+
+Write-Host "Discovers networked devices and services that use the SSDP discovery protocol, such as UPnP devices"
+Set-Service -Name SSDPSRV -StartupType Disabled -Status Stopped -Verbose
+
+Write-Host "Provides required infrastructure support for the application model"
+Set-Service -Name StateRepository -StartupType Manual -Status Stopped -Verbose #Running
+
+Write-Host "Launches applications associated with still image acquisition events"
+Set-Service -Name WiaRpc -StartupType Disabled -Status Stopped -Verbose
+
+Write-Host "Provides enabling services for storage settings and external storage expansion"
+Set-Service -Name StorSvc -StartupType Manual -Status Stopped -Verbose #Running
+
+Write-Host "Optimizes the placement of data in storage tiers on all tiered storage spaces in the system"
+Set-Service -Name TieringEngineService -StartupType Manual -Status Stopped -Verbose #Running
+
+Write-Host "Maintains and improves system performance over time"
+Set-Service -Name SysMain -StartupType Disabled -Status Stopped -Verbose
+
+Write-Host "This service synchronizes mail, contacts, calendar and various other user data"
+Set-Service -Name OneSyncSvc -StartupType Disabled -Status Stopped -Verbose
+
+Write-Host "Monitors system events and notifies subscribers to COM+ Event System of these events"
+Set-Service -Name SENS -StartupType Auto -Status Running -Verbose
+
+Write-Host "Coordinates execution of background work for WinRT application"
+Set-Service -Name SystemEventsBroker -StartupType Auto -Status Running -Verbose
+
+Write-Host "Enables a user to configure and schedule automated tasks on this computer"
+Set-Service -Name Schedule -StartupType Auto -Status Running -Verbose
+
+Write-Host "Supports NetBIOS over TCP/IP/name resolution for clients on the network, enabling users to share files, print, and log on to the network"
+Set-Service -Name lmhosts -StartupType Manual -Status Running -Verbose
+
+Write-Host "Provides Telephony API support for programs that control telephony devices on the local computer and on servers also running the service"
+Set-Service -Name TapiSrv -StartupType Disabled -Status Stopped -Verbose
+
+Write-Host "Provides user experience theme management"
+Set-Service -Name Themes -StartupType Auto -Status Running -Verbose
+
+Write-Host "Tile Server for tile updates"
+Set-Service -Name tiledatamodelsvc -StartupType Disabled -Status Stopped -Verbose
+
+Write-Host "Coordinates execution of background work for WinRT application"
+Set-Service -Name TimeBrokerSvc -StartupType Manual -Status Stopped -Verbose #Running
+
+Write-Host "Enables Touch Keyboard and Handwriting Panel pen and ink functionality"
+Set-Service -Name TabletInputService -StartupType Disabled -Status Stopped -Verbose
+
+Write-Host "Manages Windows Updates. If stopped, your devices will not be able to download and install latest updates"
+Set-Service -Name UsoSvc -StartupType Manual -Status Stopped -Verbose #Running
+
+Write-Host "Allows UPnP devices to be hosted on this computer"
+Set-Service -Name upnphost -StartupType Disabled -Status Stopped -Verbose
+
+Write-Host "Provides apps access to structured user data, including contact info, calendars, messages, and other content"
+Set-Service -Name UserDataSvc -StartupType Disabled -Status Stopped -Verbose
+
+Write-Host "Handles storage of structured user data, including contact info, calendars, messages, and other content"
+Set-Service -Name UnistoreSvc -StartupType Disabled -Status Stopped -Verbose
+
+Write-Host "Provides support for application and OS settings roaming"
+Set-Service -Name UevAgentService -StartupType Disabled -Status Stopped -Verbose
+
+
+
+
+
+
+
+
 
 
 
