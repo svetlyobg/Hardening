@@ -223,23 +223,68 @@ Set-Service -Name vmicrdv -StartupType Manual -Status Running -Verbose #Stopped
 Write-Host "Synchronizes the system time of this virtual machine with the system time of the physical computer"
 Set-Service -Name vmictimesync -StartupType Manual -Status Running -Verbose #Stopped
 
+Write-Host "Coordinates the communications that are required to use Volume Shadow Copy Service to back up applications and data on this virtual machine"
+Set-Service -Name vmicvss -StartupType Manual -Status Running -Verbose #Stopped
 
+Write-Host "The IISAdmin service hosts the IIS 6.0 configuration compatibility component (metabase) required by IIS 6.0 administrative scripts, SMTP & FTP"
+Set-Service -Name IISADMIN -StartupType Disabled -Status Stopped -Verbose
 
+Write-Host "The IKEEXT service hosts the Internet Key Exchange (IKE) and Authenticated Internet Protocol (AuthIP) keying modules"
+Set-Service -Name IKEEXT -StartupType Manual -Status Stopped -Verbose #Running
 
+Write-Host "Detects other Infrared devices that are in range and launches the file transfer application"
+Set-Service -Name irmon -StartupType Disabled -Status Stopped -Verbose
 
+Write-Host "Enables user notification of user input for interactive services, which enables access to dialogs created by interactive services when they appear"
+Set-Service -Name UI0Detect -StartupType Disabled -Status Stopped -Verbose
 
+Write-Host "Provides network address translation, addressing, name resolution and/or intrusion prevention services for a home or small office network"
+Set-Service -Name SharedAccess -StartupType Disabled -Status Stopped -Verbose
 
+Write-Host "Provides tunnel connectivity using IPv6 transition technologies (6to4, ISATAP, Port Proxy, and Teredo), and IP-HTTPS"
+Set-Service -Name iphlpsvc -StartupType Disabled -Status Stopped -Verbose
 
+Write-Host "Configures and enables translation from v4 to v6 and vice versa"
+Set-Service -Name IpxlatCfgSvc -StartupType Disabled -Status Stopped -Verbose
 
+Write-Host "The IKEEXT service hosts the Internet Key Exchange (IKE) and Authenticated Internet Protocol (AuthIP) keying modules"
+Set-Service -Name PolicyAgent -StartupType Manual -Status Stopped -Verbose #Running
 
+Write-Host "The IKEEXT service hosts the Internet Key Exchange (IKE) and Authenticated Internet Protocol (AuthIP) keying modules"
+Set-Service -Name KtmRm -StartupType Manual -Status Stopped -Verbose #Running
 
+Write-Host "Creates a Network Map, consisting of PC and device topology (connectivity) information, and metadata describing each PC and device"
+Set-Service -Name lltdsvc -StartupType Disabled -Status Stopped -Verbose
 
+Write-Host "This service provides profile management for subscriber identity modules"
+Set-Service -Name wlpasvc -StartupType Manual -Status Stopped -Verbose #Running
 
+Write-Host "Core Windows Service that manages local user sessions. Stopping or disabling this service will result in system instability"
+Set-Service -Name LSM -StartupType Auto -Status Running -Verbose
 
+Write-Host "The LXSS Manager service supports running native ELF binaries"
+Set-Service -Name LxssManager -StartupType Disabled -Status Stopped -Verbose
 
+Write-Host "Service supporting text messaging and related functionality"
+Set-Service -Name MessagingService -StartupType Disabled -Status Stopped -Verbose
 
+Write-Host "Diagnostics Hub Standard Collector Service. When running, this service collects real time ETW events and processes them"
+Set-Service -Name diagnosticshub.standardcollector.service -StartupType Manual -Status Stopped -Verbose #Running
 
+Write-Host "Manages App-V users and virtual applications"
+Set-Service -Name AppVClient -StartupType Disabled -Status Stopped -Verbose
 
+Write-Host "Enables user sign-in through Microsoft account identity services"
+Set-Service -Name wlidsvc -StartupType Disabled -Status Stopped -Verbose
+
+Write-Host "Enables the server to be a File Transfer Protocol (FTP) server"
+Set-Service -Name FTPSVC -StartupType Disabled -Status Stopped -Verbose
+
+Write-Host "Manages Internet SCSI (iSCSI) sessions from this computer to remote iSCSI target devices"
+Set-Service -Name MSiSCSI -StartupType Disabled -Status Stopped -Verbose
+
+Write-Host "Provides process isolation for cryptographic keys used to authenticate to a user's associated identity providers"
+Set-Service -Name NgcSvc -StartupType Disabled -Status Stopped -Verbose
 
 
 
