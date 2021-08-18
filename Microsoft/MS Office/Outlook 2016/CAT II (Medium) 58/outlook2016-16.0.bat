@@ -233,4 +233,4 @@ reg add "HKCU\Software\Policies\Microsoft\Office\16.0\outlook\security" /v NoChe
 
 rem V-228476 - Check e-mail addresses against addresses of certificates being used must be disallowed
 rem https://www.stigviewer.com/stig/microsoft_outlook_2016/2020-09-25/finding/V-228476
-reg add "HKCU\Software\Policies\Microsoft\Office\16.0\outlook\security" /v SupressNameChecks /t REG_DWORD /d 1 /f
+reg add "HKCU\Software\Policies\Microsoft\Office\16.0\outlook\security" /v SupressNameChecks /t REG_DWORD /d 1 /f 
