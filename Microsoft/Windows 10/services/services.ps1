@@ -565,6 +565,46 @@ Set-Service -Name WebClient -StartupType Disabled -Status Stopped -Verbose
 Write-Host "Manages connections to wireless services, including wireless display and docking"
 Set-Service -Name WFDSConMgrSvc -StartupType Disabled -Status Stopped -Verbose
 
+Write-Host "Manages audio devices for the Windows Audio service"
+Set-Service -Name AudioEndpointBuilder -StartupType Disabled -Status Stopped -Verbose
+
+Write-Host "Manages audio for Windows-based programs"
+Set-Service -Name Audiosrv -StartupType Disabled -Status Stopped -Verbose
+
+Write-Host "Provides Windows Backup and Restore capabilities"
+Set-Service -Name SDRSVC -StartupType Disabled -Status Stopped -Verbose
+
+Write-Host "Enables applications to capture/compare/manipulate/store biometric data without gaining direct access to any biometric hardware or samples"
+Set-Service -Name WbioSrvc -StartupType Disabled -Status Stopped -Verbose
+
+Write-Host "Automates connect/disconnect decisions based on network connectivity options available & mgmt of connectivity based on Group Policy settings"
+Set-Service -Name Wcmsvc -StartupType Disabled -Status Stopped -Verbose
+
+Write-Host "The Windows Connect Now - Config Registrar"
+Set-Service -Name WCNCSVC -StartupType Disabled -Status Stopped -Verbose
+
+Write-Host "Enables multiple clients to access video frames from camera devices"
+Set-Service -Name FrameServer -StartupType Auto -Status Running -Verbose
+
+Write-Host "Helps protect users from malware and other potentially unwanted software"
+Set-Service -Name WinDefend -StartupType Auto -Status Running -Verbose
+
+Write-Host "Protects against advanced threats by monitoring and reporting security events that happen on the computer"
+Set-Service -Name Sense -StartupType Auto -Status Running -Verbose
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
