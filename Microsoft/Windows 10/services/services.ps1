@@ -535,6 +535,46 @@ Set-Service -Name UnistoreSvc -StartupType Disabled -Status Stopped -Verbose
 Write-Host "Provides support for application and OS settings roaming"
 Set-Service -Name UevAgentService -StartupType Disabled -Status Stopped -Verbose
 
+Write-Host "User Manager provides the runtime components required for multi-user interaction"
+Set-Service -Name UserManager -StartupType Auto -Status Running -Verbose
+
+Write-Host "This service is responsible for loading and unloading user profiles"
+Set-Service -Name ProfSvc -StartupType Auto -Status Running -Verbose
+
+Write-Host "Provides management services for disks, volumes, file systems, and storage arrays"
+Set-Service -Name vds -StartupType Manual -Status Stopped -Verbose #Running
+
+Write-Host "Manages and implements Volume Shadow Copies used for backup and other purposes"
+Set-Service -Name VSS -StartupType Manual -Status Stopped -Verbose #Running
+
+Write-Host "Hosts objects used by clients of the wallet"
+Set-Service -Name WalletService -StartupType Disabled -Status Stopped -Verbose
+
+Write-Host "Provides a JIT out of process service for WARP when running with ACG enabled"
+Set-Service -Name WarpJITSvc -StartupType Manual -Status Stopped -Verbose #Running
+
+Write-Host "This service is used by Web Account Manager to provide single-sign-on to apps and services"
+Set-Service -Name TokenBroker -StartupType Manual -Status Running -Verbose
+
+Write-Host "Enables remote and delegated management capabilities for administrators to manage Web server, sites and applications present on the machine"
+Set-Service -Name WMSvc -StartupType Disabled -Status Stopped -Verbose
+
+Write-Host "Enables Windows-based programs to create, access, and modify Internet-based files"
+Set-Service -Name WebClient -StartupType Disabled -Status Stopped -Verbose
+
+Write-Host "Manages connections to wireless services, including wireless display and docking"
+Set-Service -Name WFDSConMgrSvc -StartupType Disabled -Status Stopped -Verbose
+
+
+
+
+
+
+
+
+
+
+
 
 
 
