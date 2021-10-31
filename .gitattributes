@@ -1,0 +1,1 @@
+files/CIS-CAT_Lite_v4.0.22.zip filter=lfs diff=lfs merge=lfs -text
