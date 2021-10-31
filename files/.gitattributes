@@ -2,3 +2,4 @@ SCAP[[:space:]]&[[:space:]]STIG[[:space:]]Tutorial.mp4 filter=lfs diff=lfs merge
 scc-5.4.2_Windows_bundle.zip filter=lfs diff=lfs merge=lfs -text
 U_MS_Windows_10_V2R2_STIG_SCAP_1-2_Benchmark.zip filter=lfs diff=lfs merge=lfs -text
 U_MS_Windows_10_V2R2_STIG.zip filter=lfs diff=lfs merge=lfs -text
+U_STIGViewer_2-15_Win64.zip filter=lfs diff=lfs merge=lfs -text
