@@ -8,3 +8,4 @@
 6. Download the [standalone option for the STIG viewer](https://dl.dod.cyber.mil/wp-content/uploads/stigs/zip/U_STIGViewer_2-15_Win64.zip), the [.msi file](https://dl.dod.cyber.mil/wp-content/uploads/stigs/zip/U_STIGViewer_2-15_Win64.msi.zip) or the [JDK/JRE version](https://dl.dod.cyber.mil/wp-content/uploads/stigs/zip/U_STIGViewer_2-15.zip)
 7. Download the [Microsoft Security Compliance Toolkit (LGPO.zip only)](https://download.microsoft.com/download/8/5/C/85C25433-A1B0-4FFA-9429-7E023E7DA8D8/LGPO.zip)
 8. You can check for more manual STIGS/xml benchmarks [here](https://www.stigviewer.com/stigs)
+9. You can always perform fast checks using the benchmark software from the [Center for Internet Security](https://learn.cisecurity.org/cis-cat-lite)
