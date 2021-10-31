@@ -1,6 +1,6 @@
 # Hardening
 
-1. Check this [Amazing YouTube Tutorial](https://youtu.be/6ehIeAxzXSY) and visit the [website](https://public.cyber.mil/) to download updated versions of the files below
+1. Check this [Amazing YouTube Tutorial](https://youtu.be/6ehIeAxzXSY) and visit the [website](https://public.cyber.mil/stigs/) to download updated versions of the files below
 2. Download the [SCAP Compliance Checker](https://dl.dod.cyber.mil/wp-content/uploads/stigs/zip/scc-5.4.2_Windows_bundle.zip) for Windows
 3. Download the [Microsoft Windows 10 STIG Benchmark](https://dl.dod.cyber.mil/wp-content/uploads/stigs/zip/U_MS_Windows_10_V2R2_STIG_SCAP_1-2_Benchmark.zip)
 4. Download the [Group Policy Objects](https://dl.dod.cyber.mil/wp-content/uploads/stigs/zip/U_STIG_GPO_July_2021.zip)
