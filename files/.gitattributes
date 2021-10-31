@@ -5,3 +5,4 @@ U_MS_Windows_10_V2R2_STIG.zip filter=lfs diff=lfs merge=lfs -text
 U_STIGViewer_2-15_Win64.zip filter=lfs diff=lfs merge=lfs -text
 U_STIGViewer_2-15.zip filter=lfs diff=lfs merge=lfs -text
 LGPO.zip filter=lfs diff=lfs merge=lfs -text
+Complete[[:space:]]STIG[[:space:]]List.url filter=lfs diff=lfs merge=lfs -text
