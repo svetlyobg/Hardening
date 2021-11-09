@@ -13,5 +13,7 @@ echo enabled "V-220830 - Enhanced anti-spoofing for facial recognition must be e
 
 rem V-220836 - The Windows Defender SmartScreen for Explorer must be enabled.
 rem https://www.stigviewer.com/stig/windows_10/2021-03-10/finding/V-220836
-reg add "HKLM\Software\Policies\Microsoft\Windows\System\" /v EnableSmartScreen /t REG_DWORD /d 1 /f
-reg add "HKLM\Software\Policies\Microsoft\Windows\System\" /v ShellSmartScreenLevel /t REG_SZ /d Block /f
+reg add "HKLM\Software\Policies\Microsoft\Windows\System" /v EnableSmartScreen /t REG_DWORD /d 1 /f
+reg add "HKLM\Software\Policies\Microsoft\Windows\System" /v ShellSmartScreenLevel /t REG_SZ /d Block /f
+
+
