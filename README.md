@@ -1,5 +1,14 @@
 # Hardening
 
+![GitHub all releases](https://img.shields.io/github/downloads/svetlyobg/Hardening/total?logo=GitHub&style=flat-square)
+![GitHub repo size](https://img.shields.io/github/repo-size/svetlyobg/Hardening)
+![GitHub top language](https://img.shields.io/github/languages/top/svetlyobg/Hardening)
+![GitHub language count](https://img.shields.io/github/languages/count/svetlyobg/Hardening)
+![GitHub pull requests](https://img.shields.io/github/issues-pr/svetlyobg/Hardening)
+![GitHub issues](https://img.shields.io/github/issues/svetlyobg/Hardening)
+![Twitter Follow](https://img.shields.io/twitter/follow/svkosev?style=social)
+
+
 1. Check this [Amazing YouTube Tutorial](https://youtu.be/6ehIeAxzXSY) and visit the [website](https://public.cyber.mil/stigs/) to download updated versions of the files below
 2. Download the [SCAP Compliance Checker](https://dl.dod.cyber.mil/wp-content/uploads/stigs/zip/scc-5.4.2_Windows_bundle.zip) for Windows
 3. Download the [Microsoft Windows 10 STIG Benchmark](https://dl.dod.cyber.mil/wp-content/uploads/stigs/zip/U_MS_Windows_10_V2R2_STIG_SCAP_1-2_Benchmark.zip)
