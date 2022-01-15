@@ -1031,4 +1031,8 @@ rem https://www.stigviewer.com/stig/windows_10/2021-03-10/finding/V-220765
 rem 220765 - The system must be configured to audit Object Access - Removable Storage failures
 rem manual check
 
+rem https://www.stigviewer.com/stig/windows_server_2012_member_server/2014-01-07/finding/V-3453
+rem 3453 - Remote Desktop Services must always prompt a client for passwords upon connection
+reg add "HKLM\Software\Policies\Microsoft\Windows NT\Terminal Services" /v fPromptForPassword /t REG_DWORD /d 1 /f
+
 
