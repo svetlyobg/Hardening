@@ -29,4 +29,4 @@ rem To establish the recommended configuration via GP, set the following UI path
 rem Description
 rem Service supporting the audio gateway role of the Bluetooth Handsfree Profile. The recommended state for this setting is: Disabled.
 
-reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\BTAGService" /s Start /t REG_DWORD /d 4 /f
+reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\BTAGService" /v Start /t REG_DWORD /d 4 /f
