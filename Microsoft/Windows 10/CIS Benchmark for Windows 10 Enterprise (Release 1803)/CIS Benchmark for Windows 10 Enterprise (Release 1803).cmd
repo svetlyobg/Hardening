@@ -17,3 +17,16 @@ rem This policy setting prevents users from adding new Microsoft accounts on thi
 
 reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v NoConnectedUser /t REG_DWORD /d 3 /f
 
+rem TITLE
+rem Ensure 'Bluetooth Audio Gateway Service (BTAGService)' is set to 'Disabled'
+
+rem Rationale
+rem Bluetooth technology has inherent security risks - especially prior to the v2.1 standard. Wireless Bluetooth traffic is not well encrypted (if at all), so in a high-security environment, it should not be permitted, in spite of the added inconvenience of not being able to use Bluetooth devices.
+
+rem Remediation
+rem To establish the recommended configuration via GP, set the following UI path to: Disabled: Computer Configuration\Policies\Windows Settings\Security Settings\System Services\Bluetooth Audio Gateway Service Note: This service was first introduced in Windows 10 Release 1803. It appears to have replaced the older Bluetooth Handsfree Service (BthHFSrv), which was removed from Windows in that release (it is not simply a rename, but a different service).
+
+rem Description
+rem Service supporting the audio gateway role of the Bluetooth Handsfree Profile. The recommended state for this setting is: Disabled.
+
+reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\BTAGService" /s Start /t REG_DWORD /d 4 /f
