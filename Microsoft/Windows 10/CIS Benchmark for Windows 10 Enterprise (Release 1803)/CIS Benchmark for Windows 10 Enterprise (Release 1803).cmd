@@ -85,3 +85,5 @@ reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\UmRdpService"/v St
 rem Ensure 'Remote Procedure Call (RPC) Locator (RpcLocator)' is set to 'Disabled'
 reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\RpcLocator"/v Start /t REG_DWORD /d 4 /f
 
+rem Ensure 'Server (LanmanServer)' is set to 'Disabled'
+reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\LanmanServer"/v Start /t REG_DWORD /d 4 /f
