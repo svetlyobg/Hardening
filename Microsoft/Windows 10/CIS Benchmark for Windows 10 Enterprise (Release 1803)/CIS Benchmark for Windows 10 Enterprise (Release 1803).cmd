@@ -123,3 +123,6 @@ reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\XblAuthManager"/v 
 
 rem Ensure 'Xbox Live Game Save (XblGameSave)' is set to 'Disabled'
 reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\XblGameSave"/v Start /t REG_DWORD /d 4 /f
+
+rem Ensure 'Xbox Live Networking Service (XboxNetApiSvc)' is set to 'Disabled'
+reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\XboxNetApiSvc"/v Start /t REG_DWORD /d 4 /f
