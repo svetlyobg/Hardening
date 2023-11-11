@@ -57,3 +57,6 @@ reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\MSiSCSI"/v Start /
 
 rem Ensure 'Peer Name Resolution Protocol (PNRPsvc)' is set to 'Disabled'
 reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\PNRPsvc"/v Start /t REG_DWORD /d 4 /f
+
+rem Ensure 'Peer Networking Grouping (p2psvc)' is set to 'Disabled'
+reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\p2psvc"/v Start /t REG_DWORD /d 4 /f
