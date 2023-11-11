@@ -117,3 +117,6 @@ reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\WinRM"/v Start /t 
 
 rem Ensure 'Xbox Accessory Management Service (XboxGipSvc)' is set to 'Disabled'
 reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\XboxGipSvc"/v Start /t REG_DWORD /d 4 /f
+
+rem Ensure 'Xbox Live Auth Manager (XblAuthManager)' is set to 'Disabled'
+reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\XblAuthManager"/v Start /t REG_DWORD /d 4 /f
