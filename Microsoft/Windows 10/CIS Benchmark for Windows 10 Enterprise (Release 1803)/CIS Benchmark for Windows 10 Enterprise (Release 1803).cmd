@@ -71,7 +71,7 @@ rem Ensure 'Problem Reports and Solutions Control Panel Support (wercplsupport)'
 reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\wercplsupport"/v Start /t REG_DWORD /d 4 /f
 
 rem Ensure 'Remote Access Auto Connection Manager (RasAuto)' is set to 'Disabled'
-reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\RasAuto"/v Start /t REG_DWORD /d 4 /f
+reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\RasAuto"/v Start /t REG_DWORD /d 4 /f
 
 rem Ensure 'Remote Desktop Configuration (SessionEnv)' is set to 'Disabled'
 reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SessionEnv"/v Start /t REG_DWORD /d 4 /f
