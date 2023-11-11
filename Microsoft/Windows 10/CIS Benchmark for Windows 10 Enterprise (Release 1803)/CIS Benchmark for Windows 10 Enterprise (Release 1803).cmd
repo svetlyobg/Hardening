@@ -129,3 +129,6 @@ reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\XboxNetApiSvc"/v S
 
 rem Ensure LAPS AdmPwd GPO Extension / CSE is installed
 reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\GPExtensions\{D76B9641-3288-4f75-942D-087DE603E3EA}" /f
+
+rem Ensure 'Turn off Microsoft Peer-to-Peer Networking Services' is set to 'Enabled'
+reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Peernet"/v Disabled /t REG_DWORD /d 1 /f
