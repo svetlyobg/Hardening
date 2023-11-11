@@ -66,3 +66,6 @@ reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\p2pimsvc"/v Start 
 
 rem Ensure 'PNRP Machine Name Publication Service (PNRPAutoReg)' is set to 'Disabled'
 reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\PNRPAutoReg"/v Start /t REG_DWORD /d 4 /f
+
+rem Ensure 'Problem Reports and Solutions Control Panel Support (wercplsupport)' is set to 'Disabled'
+reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\wercplsupport"/v Start /t REG_DWORD /d 4 /f
