@@ -111,3 +111,6 @@ reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\WpnService"/v Star
 
 rem Ensure 'Windows PushToInstall Service (PushToInstall)' is set to 'Disabled'
 reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\PushToInstall"/v Start /t REG_DWORD /d 4 /f
+
+rem Ensure 'Windows Remote Management (WS-Management) (WinRM)' is set to 'Disabled'
+reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\WinRM"/v Start /t REG_DWORD /d 4 /f
