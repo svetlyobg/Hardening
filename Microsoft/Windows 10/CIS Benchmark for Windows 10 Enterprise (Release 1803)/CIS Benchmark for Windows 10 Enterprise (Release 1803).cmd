@@ -135,3 +135,6 @@ reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Peernet"/v Disabled /t R
 
 rem Ensure 'Include command line in process creation events' is set to 'Disabled'
 reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\Audit"/v ProcessCreationIncludeCmdLine_Enabled /t REG_DWORD /d 0 /f
+
+rem Ensure 'Turn on PowerShell Script Block Logging' is set to 'Disabled''
+reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\PowerShell\ScriptBlockLoggin"/v EnableScriptBlockLogging /t REG_DWORD /d 0 /f
