@@ -96,3 +96,6 @@ reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\upnphost"/v Start 
 
 rem Ensure 'Windows Error Reporting Service (WerSvc)' is set to 'Disabled'
 reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\WerSvc"/v Start /t REG_DWORD /d 4 /f
+
+rem Ensure 'Windows Event Collector (Wecsvc)' is set to 'Disabled'
+reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Wecsvc"/v Start /t REG_DWORD /d 4 /f
