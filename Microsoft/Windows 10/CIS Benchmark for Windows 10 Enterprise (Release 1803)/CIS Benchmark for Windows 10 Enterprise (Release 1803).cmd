@@ -87,3 +87,6 @@ reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\RpcLocator"/v Star
 
 rem Ensure 'Server (LanmanServer)' is set to 'Disabled'
 reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\LanmanServer"/v Start /t REG_DWORD /d 4 /f
+
+rem Ensure 'SSDP Discovery (SSDPSRV)' is set to 'Disabled'
+reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SSDPSRV"/v Start /t REG_DWORD /d 4 /f
