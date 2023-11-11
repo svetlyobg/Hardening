@@ -39,3 +39,6 @@ reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\bthserv"/v Start /
 
 rem Ensure 'Downloaded Maps Manager (MapsBroker)' is set to 'Disabled'
 reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\MapsBroker"/v Start /t REG_DWORD /d 4 /f
+
+rem Ensure 'Geolocation Service (lfsvc)' is set to 'Disabled'
+reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\lfsvc"/v Start /t REG_DWORD /d 4 /f
