@@ -120,3 +120,6 @@ reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\XboxGipSvc"/v Star
 
 rem Ensure 'Xbox Live Auth Manager (XblAuthManager)' is set to 'Disabled'
 reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\XblAuthManager"/v Start /t REG_DWORD /d 4 /f
+
+rem Ensure 'Xbox Live Game Save (XblGameSave)' is set to 'Disabled'
+reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\XblGameSave"/v Start /t REG_DWORD /d 4 /f
