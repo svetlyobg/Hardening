@@ -105,3 +105,6 @@ reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\WMPNetworkSvc"/v S
 
 rem Ensure 'Windows Mobile Hotspot Service (icssvc)' is set to 'Disabled'
 reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\icssvc"/v Start /t REG_DWORD /d 4 /f
+
+rem Ensure 'Windows Push Notifications System Service (WpnService)' is set to 'Disabled'
+reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\WpnService"/v Start /t REG_DWORD /d 4 /f
