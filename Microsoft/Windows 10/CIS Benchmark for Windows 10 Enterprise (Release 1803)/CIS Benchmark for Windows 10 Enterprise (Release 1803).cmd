@@ -138,3 +138,6 @@ reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\S
 
 rem Ensure 'Turn on PowerShell Script Block Logging' is set to 'Disabled''
 reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\PowerShell\ScriptBlockLoggin"/v EnableScriptBlockLogging /t REG_DWORD /d 0 /f
+
+rem Ensure 'Turn on PowerShell Transcription' is set to 'Disabled'
+reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\PowerShell\Transcription"/v EnableTranscripting /t REG_DWORD /d 0 /f
