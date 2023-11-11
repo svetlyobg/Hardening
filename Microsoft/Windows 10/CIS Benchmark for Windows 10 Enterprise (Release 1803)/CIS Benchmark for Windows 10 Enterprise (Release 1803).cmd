@@ -51,3 +51,6 @@ reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\lltdsvc"/v Start /
 
 rem Ensure 'LxssManager (LxssManager)' is set to 'Disabled' or 'Not Installed'
 reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\LxssManager"/v Start /t REG_DWORD /d 4 /f
+
+rem Ensure 'Microsoft iSCSI Initiator Service (MSiSCSI)' is set to 'Disabled'
+reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\MSiSCSI"/v Start /t REG_DWORD /d 4 /f
