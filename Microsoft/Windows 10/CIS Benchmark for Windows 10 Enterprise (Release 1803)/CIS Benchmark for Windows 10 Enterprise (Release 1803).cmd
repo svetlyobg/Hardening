@@ -48,3 +48,6 @@ reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SharedAccess"/v St
 
 rem Ensure 'Link-Layer Topology Discovery Mapper (lltdsvc)' is set to 'Disabled'
 reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\lltdsvc"/v Start /t REG_DWORD /d 4 /f
+
+rem Ensure 'LxssManager (LxssManager)' is set to 'Disabled' or 'Not Installed'
+reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\LxssManager"/v Start /t REG_DWORD /d 4 /f
