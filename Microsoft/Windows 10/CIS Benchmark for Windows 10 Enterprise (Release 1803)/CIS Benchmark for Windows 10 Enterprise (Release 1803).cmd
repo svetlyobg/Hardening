@@ -63,3 +63,6 @@ reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\p2psvc"/v Start /t
 
 rem Ensure 'Peer Networking Identity Manager (p2pimsvc)' is set to 'Disabled'
 reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\p2pimsvc"/v Start /t REG_DWORD /d 4 /f
+
+rem Ensure 'PNRP Machine Name Publication Service (PNRPAutoReg)' is set to 'Disabled'
+reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\PNRPAutoReg"/v Start /t REG_DWORD /d 4 /f
