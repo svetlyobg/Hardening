@@ -78,3 +78,7 @@ reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SessionEnv"/v Star
 
 rem Ensure 'Remote Desktop Services (TermService)' is set to 'Disabled'
 reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\TermService"/v Start /t REG_DWORD /d 4 /f
+
+rem Ensure 'Remote Desktop Services UserMode Port Redirector (UmRdpService)' is set to 'Disabled'
+reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\UmRdpService"/v Start /t REG_DWORD /d 4 /f
+
