@@ -108,3 +108,6 @@ reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\icssvc"/v Start /t
 
 rem Ensure 'Windows Push Notifications System Service (WpnService)' is set to 'Disabled'
 reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\WpnService"/v Start /t REG_DWORD /d 4 /f
+
+rem Ensure 'Windows PushToInstall Service (PushToInstall)' is set to 'Disabled'
+reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\PushToInstall"/v Start /t REG_DWORD /d 4 /f
