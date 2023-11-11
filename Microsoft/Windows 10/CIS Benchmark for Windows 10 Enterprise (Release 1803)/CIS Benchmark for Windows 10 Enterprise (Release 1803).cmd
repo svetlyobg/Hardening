@@ -69,3 +69,6 @@ reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\PNRPAutoReg"/v Sta
 
 rem Ensure 'Problem Reports and Solutions Control Panel Support (wercplsupport)' is set to 'Disabled'
 reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\wercplsupport"/v Start /t REG_DWORD /d 4 /f
+
+rem Ensure 'Remote Access Auto Connection Manager (RasAuto)' is set to 'Disabled'
+reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\RasAuto"/v Start /t REG_DWORD /d 4 /f
