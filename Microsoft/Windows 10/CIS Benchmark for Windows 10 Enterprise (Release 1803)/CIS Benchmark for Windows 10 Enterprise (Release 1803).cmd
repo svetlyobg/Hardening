@@ -45,3 +45,6 @@ reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\lfsvc"/v Start /t 
 
 rem Ensure 'Internet Connection Sharing (ICS) (SharedAccess) ' is set to 'Disabled'
 reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SharedAccess"/v Start /t REG_DWORD /d 4 /f
+
+rem Ensure 'Link-Layer Topology Discovery Mapper (lltdsvc)' is set to 'Disabled'
+reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\lltdsvc"/v Start /t REG_DWORD /d 4 /f
