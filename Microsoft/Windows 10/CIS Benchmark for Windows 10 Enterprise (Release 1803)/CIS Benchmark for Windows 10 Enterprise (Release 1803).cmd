@@ -132,3 +132,6 @@ reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogo
 
 rem Ensure 'Turn off Microsoft Peer-to-Peer Networking Services' is set to 'Enabled'
 reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Peernet"/v Disabled /t REG_DWORD /d 1 /f
+
+rem Ensure 'Include command line in process creation events' is set to 'Disabled'
+reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\Audit"/v ProcessCreationIncludeCmdLine_Enabled /t REG_DWORD /d 0 /f
