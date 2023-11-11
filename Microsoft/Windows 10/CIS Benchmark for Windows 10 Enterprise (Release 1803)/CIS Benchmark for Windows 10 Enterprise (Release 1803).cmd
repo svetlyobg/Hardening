@@ -90,3 +90,6 @@ reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\LanmanServer"/v St
 
 rem Ensure 'SSDP Discovery (SSDPSRV)' is set to 'Disabled'
 reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SSDPSRV"/v Start /t REG_DWORD /d 4 /f
+
+rem Ensure 'UPnP Device Host (upnphost)' is set to 'Disabled'
+reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\upnphost"/v Start /t REG_DWORD /d 4 /f
