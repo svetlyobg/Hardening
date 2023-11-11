@@ -103,3 +103,5 @@ reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Wecsvc"/v Start /t
 rem Ensure 'Windows Media Player Network Sharing Service (WMPNetworkSvc)' is set to 'Disabled' or 'Not Installed'
 reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\WMPNetworkSvc"/v Start /t REG_DWORD /d 4 /f
 
+rem Ensure 'Windows Mobile Hotspot Service (icssvc)' is set to 'Disabled'
+reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\icssvc"/v Start /t REG_DWORD /d 4 /f
