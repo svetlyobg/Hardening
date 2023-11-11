@@ -30,3 +30,6 @@ rem Description
 rem Service supporting the audio gateway role of the Bluetooth Handsfree Profile. The recommended state for this setting is: Disabled.
 
 reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\BTAGService" /v Start /t REG_DWORD /d 4 /f
+
+rem Ensure 'Interactive logon: Number of previous logons to cache (in case domain controller is not available)' is set to '4 or fewer logon(s)'
+reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v CachedLogonsCount /t REG_DWORD /d n:^(\d+) compare <= 4 /f
