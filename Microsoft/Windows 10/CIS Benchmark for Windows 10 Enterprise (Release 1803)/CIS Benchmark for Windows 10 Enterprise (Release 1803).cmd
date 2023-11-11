@@ -126,3 +126,6 @@ reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\XblGameSave"/v Sta
 
 rem Ensure 'Xbox Live Networking Service (XboxNetApiSvc)' is set to 'Disabled'
 reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\XboxNetApiSvc"/v Start /t REG_DWORD /d 4 /f
+
+rem Ensure LAPS AdmPwd GPO Extension / CSE is installed
+reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\GPExtensions\{D76B9641-3288-4f75-942D-087DE603E3EA}" /f
