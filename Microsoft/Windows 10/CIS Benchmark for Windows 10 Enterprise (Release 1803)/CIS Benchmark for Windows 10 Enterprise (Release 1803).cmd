@@ -38,4 +38,4 @@ rem Ensure 'Bluetooth Support Service (bthserv)' is set to 'Disabled'
 reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\bthserv"/v Start /t REG_DWORD /d 4 /f
 
 rem Ensure 'Downloaded Maps Manager (MapsBroker)' is set to 'Disabled'
-g add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\MapsBroker"/v Start /t REG_DWORD /d 4 /f
+reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\MapsBroker"/v Start /t REG_DWORD /d 4 /f
