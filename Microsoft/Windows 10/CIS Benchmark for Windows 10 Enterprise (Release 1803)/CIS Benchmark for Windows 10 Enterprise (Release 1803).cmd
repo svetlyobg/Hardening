@@ -93,3 +93,6 @@ reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SSDPSRV"/v Start /
 
 rem Ensure 'UPnP Device Host (upnphost)' is set to 'Disabled'
 reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\upnphost"/v Start /t REG_DWORD /d 4 /f
+
+rem Ensure 'Windows Error Reporting Service (WerSvc)' is set to 'Disabled'
+reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\WerSvc"/v Start /t REG_DWORD /d 4 /f
