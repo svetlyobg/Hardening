@@ -99,3 +99,7 @@ reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\WerSvc"/v Start /t
 
 rem Ensure 'Windows Event Collector (Wecsvc)' is set to 'Disabled'
 reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Wecsvc"/v Start /t REG_DWORD /d 4 /f
+
+rem Ensure 'Windows Media Player Network Sharing Service (WMPNetworkSvc)' is set to 'Disabled' or 'Not Installed'
+reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\WMPNetworkSvc"/v Start /t REG_DWORD /d 4 /f
+
