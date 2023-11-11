@@ -82,3 +82,5 @@ reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\TermService"/v Sta
 rem Ensure 'Remote Desktop Services UserMode Port Redirector (UmRdpService)' is set to 'Disabled'
 reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\UmRdpService"/v Start /t REG_DWORD /d 4 /f
 
+rem Ensure 'Remote Procedure Call (RPC) Locator (RpcLocator)' is set to 'Disabled'
+reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\RpcLocator"/v Start /t REG_DWORD /d 4 /f
