@@ -8,6 +8,7 @@
 ![GitHub issues](https://img.shields.io/github/issues/svetlyobg/Hardening)
 ![Twitter Follow](https://img.shields.io/twitter/follow/svkosev?style=social)
 
+Updated Links 2025! [SCAP 1.3 Content](https://www.cyber.mil/stigs/SCAP)| [Stigs](https://stigviewer.com/stigs) | [https://stigviewer.com/](https://stigviewer.com/)
 
 1. Check this [Amazing YouTube Tutorial](https://youtu.be/6ehIeAxzXSY) and visit the [website](https://public.cyber.mil/stigs/) to download updated versions of the files below
 2. Download the [SCAP Compliance Checker](https://dl.dod.cyber.mil/wp-content/uploads/stigs/zip/scc-5.4.2_Windows_bundle.zip) for Windows
