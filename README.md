@@ -4,6 +4,7 @@
 
 [Security Content Application Protocols SCC 5.14.1 Windows](https://dl.dod.cyber.mil/wp-content/uploads/stigs/zip/scc-5.14.1_Windows_bundle.zip)
 [Microsoft Windows 11 STIG - Ver 2, Rel 7](https://dl.dod.cyber.mil/wp-content/uploads/stigs/zip/U_MS_Windows_11_V2R7_STIG.zip)
+[Microsoft Windows 11 STIG SCAP Benchmark - Ver 2, Rel 8](https://dl.dod.cyber.mil/wp-content/uploads/stigs/zip/U_MS_Windows_11_V2R8_STIG_SCAP_1-3_Benchmark.zip)
 
 
 ![GitHub all releases](https://img.shields.io/github/downloads/svetlyobg/Hardening/total?logo=GitHub&style=flat-square)
