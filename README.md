@@ -1,5 +1,9 @@
 # Hardening
 
+**2026**
+
+[Security Content Application Protocols SCC 5.14.1 Windows](https://dl.dod.cyber.mil/wp-content/uploads/stigs/zip/scc-5.14.1_Windows_bundle.zip)
+
 ![GitHub all releases](https://img.shields.io/github/downloads/svetlyobg/Hardening/total?logo=GitHub&style=flat-square)
 ![GitHub repo size](https://img.shields.io/github/repo-size/svetlyobg/Hardening)
 ![GitHub top language](https://img.shields.io/github/languages/top/svetlyobg/Hardening)
