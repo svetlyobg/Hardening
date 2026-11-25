@@ -3,8 +3,65 @@
 **2026**
 
 [Security Content Application Protocols SCC 5.14.1 Windows](https://dl.dod.cyber.mil/wp-content/uploads/stigs/zip/scc-5.14.1_Windows_bundle.zip)
-[Microsoft Windows 11 STIG - Ver 2, Rel 7](https://dl.dod.cyber.mil/wp-content/uploads/stigs/zip/U_MS_Windows_11_V2R7_STIG.zip)
+[Microsoft Windows 11 STIG - Ver 2, Rel 11](https://dl.dod.cyber.mil/wp-content/uploads/stigs/zip/U_MS_Windows_11_V2R11_STIG.zip)
+[Microsoft Windows Server 2025 STIG - Ver 1, Rel 4](https://dl.dod.cyber.mil/wp-content/uploads/stigs/zip/U_MS_Windows_Server_2025_V1R4_STIG.zip)
 [Microsoft Windows 11 STIG SCAP Benchmark - Ver 2, Rel 8](https://dl.dod.cyber.mil/wp-content/uploads/stigs/zip/U_MS_Windows_11_V2R8_STIG_SCAP_1-3_Benchmark.zip)
+
+## New: automated hardening for Windows 11 and Windows Server 2025
+
+PowerShell scripts generated from the official DISA STIGs (**Windows 11 V2R11**, **Windows Server 2025 V1R4**).
+They need no gpedit/LGPO, so they also work on **Windows Home**. Nothing from the older folders was changed or removed.
+
+### Is this destructive?
+**Not by default, and it is designed to be reversible.**
+- The default mode is **`Audit`**: it only *reads* your settings and prints what differs from the STIG. It changes nothing.
+- **`-WhatIf`** shows exactly what `Apply` would change, without changing it.
+- Every `Apply` first saves a **backup**, and **`Rollback`** restores it.
+- Audit-policy changes only *switch logging on* and never turn anything off.
+- **User rights** (the riskiest type) are **never** included unless you explicitly ask with `-PolicyType Right`.
+
+It is still security hardening, so be sensible: stricter settings (SMB signing, NTLMv2-only, lockout after 3 bad passwords,
+14-character passwords) can break access to old NAS devices or older software. **Run Audit first, try Apply in a VM or on a
+test machine, and read the per-OS README.** The `Apply` and `Rollback` paths are new and were verified by unit tests of the
+comparison logic plus a live read-only Audit on Windows 11 Pro; they have not yet been exercised on a wide range of machines.
+
+### Folder structure
+```
+Hardening/
+├── Microsoft/
+│   ├── Common/                          shared engines + STIG converters (used by both OS folders)
+│   │   ├── Invoke-RegistryHardening.ps1   registry rules: Audit | Apply | Rollback
+│   │   ├── Invoke-PolicyHardening.ps1     audit policy, password/lockout policy, user rights (auditpol + secedit)
+│   │   ├── Convert-StigToCsv.ps1          STIG XML -> registry rules CSV
+│   │   └── Convert-StigPolicyToCsv.ps1    STIG XML -> audit/account/rights CSV
+│   ├── Windows 11/                      NEW
+│   │   ├── Run-Hardening.ps1              the one script you run
+│   │   ├── stig-settings.csv              registry rules from the STIG (V-ID, severity, path, value)
+│   │   ├── stig-needs-review.csv          STIG rules NOT automated, with the reason
+│   │   ├── policy-settings.csv            audit / account / user-right rules from the STIG
+│   │   ├── policy-needs-review.csv        policy rules NOT automated, with the reason
+│   │   ├── custom-settings.csv            extra rules that are not in the STIG - edit freely
+│   │   └── README.md
+│   ├── Windows Server 2025/             NEW, same layout (adds -Role Member|DC for domain controllers)
+│   ├── Windows 10/                      unchanged: original per-finding .ps1 / .bat scripts
+│   ├── Windows Defender Antivirus/      unchanged
+│   └── MS Office/                       unchanged
+└── files/                             unchanged: STIG viewer, LGPO, CIS-CAT, older benchmark zips
+```
+
+### Quick start (run PowerShell as Administrator for `-Policy`)
+```powershell
+cd "Microsoft\Windows 11"
+.\Run-Hardening.ps1                                   # registry rules, report only
+.\Run-Hardening.ps1 -Policy                           # audit policy + password policy, report only
+.\Run-Hardening.ps1 -Policy -Mode Apply -PolicyType Audit -WhatIf    # preview
+.\Run-Hardening.ps1 -Policy -Mode Apply -PolicyType Audit            # apply (backs up first)
+```
+Use `powershell -NoProfile -ExecutionPolicy Bypass -File .\Run-Hardening.ps1 ...` if script execution is blocked.
+More detail, including Rollback, is in `Microsoft/Windows 11/README.md` and `Microsoft/Windows Server 2025/README.md`.
+
+### Updating to a newer STIG
+Download the new STIG zip, extract the `...Manual-xccdf.xml`, and run the two converters in `Microsoft/Common/`. `git diff` then shows exactly which rules changed.
 
 
 ![GitHub all releases](https://img.shields.io/github/downloads/svetlyobg/Hardening/total?logo=GitHub&style=flat-square)
