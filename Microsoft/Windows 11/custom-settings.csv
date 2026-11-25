@@ -1,0 +1,4 @@
+"Id","Severity","Path","Name","Type","Value","Description"
+"LSA-06","CAT2","HKLM\SYSTEM\CurrentControlSet\Control\Lsa","DisableDomainCreds","DWord","1","Do not store passwords for network authentication"
+"SMB-02","CAT1","HKLM\SYSTEM\CurrentControlSet\Services\LanManServer\Parameters","SMB1","DWord","0","Disable SMBv1 server"
+"NET-01","CAT3","HKLM\SOFTWARE\Policies\Microsoft\Windows NT\DNSClient","EnableMulticast","DWord","0","Disable LLMNR"
