@@ -63,13 +63,19 @@ $rows = $rows | Group-Object { "$($_.Path)|$($_.Name)".ToLower() } | ForEach-Obj
 
 $backup = @()
 $report = @()
+if ($Mode -eq 'Apply') { $BackupFile = Join-Path $PSScriptRoot ('backup-{0:yyyyMMdd-HHmmss}.json' -f (Get-Date)) }
 foreach ($r in $rows) {
     $want = if ($r.Type -eq 'DWord') { [int]$r.Value } else { $r.Value }
     $cur = Get-Current $r.Path $r.Name
     $ok = ($null -ne $cur) -and ("$cur" -eq "$want")
     $state = if ($ok) { 'OK' } else { 'DIFF' }
     if (-not $ok -and $Mode -eq 'Apply' -and $PSCmdlet.ShouldProcess("$($r.Path)\$($r.Name)", "Set $want")) {
+        # save the old value to disk BEFORE changing it, so an interrupted Apply can still be rolled back.
+        # Write to a temp file and swap it in, so the existing backup is never left half-written.
         $backup += [pscustomobject]@{ Path = $r.Path; Name = $r.Name; Type = $r.Type; Old = $cur }
+        ConvertTo-Json -InputObject $backup | Set-Content -LiteralPath "$BackupFile.tmp" -Encoding UTF8 -Confirm:$false
+        Move-Item -LiteralPath "$BackupFile.tmp" -Destination $BackupFile -Force -Confirm:$false
+        if ($backup.Count -eq 1) { Write-Host "Backup file: $BackupFile  (undo with -Mode Rollback -BackupFile ...)" -ForegroundColor Yellow }
         $key = "Registry::$($r.Path)"
         if (-not (Test-Path -LiteralPath $key)) { New-Item -Path $key -Force | Out-Null }
         New-ItemProperty -LiteralPath $key -Name $r.Name -Value $want -PropertyType $r.Type -Force | Out-Null
@@ -81,7 +87,5 @@ $report | Format-Table -AutoSize
 Write-Host (($report | Group-Object State | ForEach-Object { "$($_.Name): $($_.Count)" }) -join ' | ') -ForegroundColor Cyan
 
 if ($backup.Count) {
-    $BackupFile = Join-Path $PSScriptRoot ('backup-{0:yyyyMMdd-HHmmss}.json' -f (Get-Date))
-    ConvertTo-Json -InputObject $backup | Set-Content $BackupFile -Encoding UTF8
     Write-Host "Backup saved: $BackupFile  (undo with -Mode Rollback -BackupFile ...)" -ForegroundColor Yellow
 }
