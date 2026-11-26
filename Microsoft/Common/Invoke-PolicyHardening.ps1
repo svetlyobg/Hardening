@@ -62,6 +62,18 @@ function Test-AuditCompliant {
     $hasS = $Current -match 'Success'; $hasF = $Current -match 'Failure'
     (-not $needS -or $hasS) -and (-not $needF -or $hasF)
 }
+function Get-SecPolicyDifference {
+    # keys ("Section|Name") where the current security policy does not match a backup
+    param([hashtable]$Backup, [hashtable]$Current)
+    foreach ($k in $Backup.Keys) {
+        if ($k -like 'System Access|*' -and "$($Current[$k])" -ne "$($Backup[$k])") { $k }
+    }
+    # a right nobody held is missing from an export, so look at the keys of both sides
+    $rights = @($Backup.Keys) + @($Current.Keys) | Where-Object { $_ -like 'Privilege Rights|*' } | Sort-Object -Unique
+    foreach ($k in $rights) {
+        if (((ConvertTo-SidSet $Backup[$k]) -join ';') -ne ((ConvertTo-SidSet $Current[$k]) -join ';')) { $k }
+    }
+}
 
 if ($MyInvocation.InvocationName -eq '.') { return }   # dot-sourced for tests: stop after defining helpers
 
@@ -97,18 +109,66 @@ function Get-AuditSetting([string]$Sub) {
     }
     $script:AuditTable[$Sub]   # $null when auditpol does not know the name (e.g. non-English Windows)
 }
+function Invoke-SecEditConfigure([string]$Inf) {
+    # a fresh database every time: secedit merges a template into an existing one, which would replay old settings
+    $db = Join-Path $env:TEMP ("hardening-{0}.sdb" -f [guid]::NewGuid())
+    & secedit.exe /configure /db $db /cfg $Inf /areas SECURITYPOLICY USER_RIGHTS /quiet | Out-Null
+    $code = $LASTEXITCODE
+    Remove-Item -LiteralPath $db, ([IO.Path]::ChangeExtension($db, 'jfm')) -ErrorAction SilentlyContinue -Confirm:$false
+    $code
+}
+function Get-RowResult($Row, [hashtable]$Ini) {
+    switch ($Row.Type) {
+        'Audit' {
+            $cur = Get-AuditSetting $Row.Key
+            @{ Ok = ($null -ne $cur -and (Test-AuditCompliant $cur $Row.Value)); Current = $cur; Wanted = $Row.Value }
+        }
+        'Account' {
+            $cur = $Ini["System Access|$($Row.Key)"]
+            @{ Ok = (Test-Compliant $Row.Op $cur $Row.Value); Current = $cur; Wanted = "$($Row.Op) $($Row.Value)" }
+        }
+        'Right' {
+            $have = @(ConvertTo-SidSet $Ini["Privilege Rights|$($Row.Key)"]); $want = @(ConvertTo-SidSet $Row.Value)
+            @{ Ok = (($have -join ';') -eq ($want -join ';')); Current = ($have -join ','); Wanted = ($want -join ',') }
+        }
+    }
+}
 
 if ($Mode -eq 'Rollback') {
     if (-not $BackupDir -or -not (Test-Path $BackupDir)) { throw '-BackupDir is required for Rollback.' }
-    $db = Join-Path $env:TEMP 'rollback.sdb'
-    if (Test-Path "$BackupDir\audit.csv") { if ($PSCmdlet.ShouldProcess('audit policy', 'restore')) { & auditpol.exe /restore /file:"$BackupDir\audit.csv" | Out-Null } }
-    if (Test-Path "$BackupDir\secpol.inf") { if ($PSCmdlet.ShouldProcess('security policy / user rights', 'restore')) { & secedit.exe /configure /db $db /cfg "$BackupDir\secpol.inf" /areas SECURITYPOLICY USER_RIGHTS /quiet | Out-Null } }
-    Write-Host 'Rollback done.' -ForegroundColor Green; return
+    $auditFile = Join-Path $BackupDir 'audit.csv'
+    $secFile = Join-Path $BackupDir 'secpol.inf'
+    $done = @(); $failed = @()
+
+    if (-not (Test-Path -LiteralPath $auditFile)) { $failed += 'audit policy: audit.csv is missing from the backup' }
+    elseif ($PSCmdlet.ShouldProcess('audit policy', 'restore')) {
+        & auditpol.exe /restore /file:"$auditFile" | Out-Null
+        if ($LASTEXITCODE -ne 0) { $failed += "audit policy: auditpol /restore returned $LASTEXITCODE" } else { $done += 'audit policy' }
+    }
+
+    if (-not (Test-Path -LiteralPath $secFile)) { $failed += 'security policy: secpol.inf is missing from the backup' }
+    elseif ($PSCmdlet.ShouldProcess('security policy / user rights', 'restore')) {
+        $code = Invoke-SecEditConfigure $secFile
+        # read the policy back: exit code 0 alone does not prove that every setting returned
+        $now = Join-Path $env:TEMP ("secpol-{0}.inf" -f [guid]::NewGuid())
+        Export-SecPolicy $now
+        $diff = @(Get-SecPolicyDifference (Read-Ini $secFile) (Read-Ini $now))
+        Remove-Item -LiteralPath $now -ErrorAction SilentlyContinue -Confirm:$false
+        if ($code -ne 0) { $failed += "security policy: secedit /configure returned $code (see %windir%\security\logs\scesrv.log)" }
+        if ($diff) { $failed += "security policy: still differs from the backup: $(($diff | Sort-Object) -join ', ')" }
+        if ($code -eq 0 -and -not $diff) { $done += 'security policy and user rights' }
+    }
+
+    if ($done) { Write-Host "Restored: $($done -join ', ')" -ForegroundColor Green }
+    if ($failed) { throw ("Rollback INCOMPLETE:`n - " + ($failed -join "`n - ")) }
+    if (-not $done) { Write-Host 'Nothing was restored.' -ForegroundColor Yellow }
+    return
 }
 
 $rows = Import-Csv $PolicyFile | Where-Object { $Type -contains $_.Type }
 $rows = $rows | Where-Object { if ($Role -eq 'DC') { $_.Role -in 'All', 'DC' } else { $_.Role -in 'All', 'MS', $null, '' } }
 if ($Severity) { $rows = $rows | Where-Object { $Severity -contains $_.Severity } }
+$rows = @($rows)
 
 $os = Get-CimInstance Win32_OperatingSystem
 Write-Host "OS: $($os.Caption) (build $($os.BuildNumber)) | Mode: $Mode | Types: $($Type -join ',') | Role: $Role" -ForegroundColor Cyan
@@ -120,27 +180,15 @@ $ini = Read-Ini $tmp
 # merge duplicate audit rows (Success + Failure for the same subcategory)
 $report = @(); $auditNeed = @{}; $accountSet = [ordered]@{}; $rightSet = [ordered]@{}
 foreach ($r in $rows) {
-    switch ($r.Type) {
-        'Audit' {
-            $cur = Get-AuditSetting $r.Key
-            $ok = $null -ne $cur -and (Test-AuditCompliant $cur $r.Value)
-            if (-not $ok) { $auditNeed["$($r.Key)"] = (@($auditNeed["$($r.Key)"], $r.Value) -join ' ') }
-            $report += [pscustomobject]@{ Type = 'Audit'; Id = $r.Id; Sev = $r.Severity; State = if ($ok) { 'OK' } else { 'DIFF' }; Setting = $r.Key; Current = $cur; Wanted = $r.Value }
-        }
-        'Account' {
-            $cur = $ini["System Access|$($r.Key)"]
-            $ok = Test-Compliant $r.Op $cur $r.Value
-            if (-not $ok) { $accountSet[$r.Key] = $r.Value }
-            $report += [pscustomobject]@{ Type = 'Account'; Id = $r.Id; Sev = $r.Severity; State = if ($ok) { 'OK' } else { 'DIFF' }; Setting = $r.Key; Current = $cur; Wanted = "$($r.Op) $($r.Value)" }
-        }
-        'Right' {
-            $cur = $ini["Privilege Rights|$($r.Key)"]
-            $have = @(ConvertTo-SidSet $cur); $want = @(ConvertTo-SidSet $r.Value)
-            $ok = (($have -join ';') -eq ($want -join ';'))
-            if (-not $ok) { $rightSet[$r.Key] = $r.Value }
-            $report += [pscustomobject]@{ Type = 'Right'; Id = $r.Id; Sev = $r.Severity; State = if ($ok) { 'OK' } else { 'DIFF' }; Setting = $r.Key; Current = ($have -join ','); Wanted = ($want -join ',') }
+    $res = Get-RowResult $r $ini
+    if (-not $res.Ok) {
+        switch ($r.Type) {
+            'Audit' { $auditNeed["$($r.Key)"] = (@($auditNeed["$($r.Key)"], $r.Value) -join ' ') }
+            'Account' { $accountSet[$r.Key] = $r.Value }
+            'Right' { $rightSet[$r.Key] = $r.Value }
         }
     }
+    $report += [pscustomobject]@{ Type = $r.Type; Id = $r.Id; Sev = $r.Severity; State = if ($res.Ok) { 'OK' } else { 'DIFF' }; Setting = $r.Key; Current = $res.Current; Wanted = $res.Wanted }
 }
 
 if ($Mode -eq 'Apply' -and ($auditNeed.Count + $accountSet.Count + $rightSet.Count)) {
@@ -154,13 +202,14 @@ if ($Mode -eq 'Apply' -and ($auditNeed.Count + $accountSet.Count + $rightSet.Cou
         Write-Host "Backup saved: $BackupDir" -ForegroundColor Yellow
     }
     elseif (-not $WhatIfPreference) { throw 'Backup declined - nothing was changed.' }
+    $tried = @{}   # "Type|Setting" for which a change was actually attempted
     # audit policy: only switch on what is missing, never turn anything off
     foreach ($sub in $auditNeed.Keys) {
         $want = $auditNeed[$sub]
         $aa = @("/set", "/subcategory:$sub")
         if ($want -match 'Success') { $aa += '/success:enable' }
         if ($want -match 'Failure') { $aa += '/failure:enable' }
-        if ($PSCmdlet.ShouldProcess("auditpol $sub", ($aa -join ' '))) { & auditpol.exe @aa | Out-Null; if ($LASTEXITCODE -ne 0) { Write-Warning "auditpol failed for $sub" } }
+        if ($PSCmdlet.ShouldProcess("auditpol $sub", ($aa -join ' '))) { $tried["Audit|$sub"] = $true; & auditpol.exe @aa | Out-Null; if ($LASTEXITCODE -ne 0) { Write-Warning "auditpol failed for $sub" } }
     }
     # account policy + user rights via one INF
     if ($accountSet.Count + $rightSet.Count) {
@@ -170,16 +219,30 @@ if ($Mode -eq 'Apply' -and ($auditNeed.Count + $accountSet.Count + $rightSet.Cou
         if ($accountSet.Count) { [void]$sb.AppendLine('[System Access]'); foreach ($k in $accountSet.Keys) { [void]$sb.AppendLine("$k = $($accountSet[$k])") } }
         if ($rightSet.Count) { [void]$sb.AppendLine('[Privilege Rights]'); foreach ($k in $rightSet.Keys) { [void]$sb.AppendLine("$k = " + ($rightSet[$k] -replace ';', ',')) } }
         Set-Content -LiteralPath $inf -Value $sb.ToString() -Encoding Unicode
-        $db = Join-Path $env:TEMP 'apply.sdb'
         if ($PSCmdlet.ShouldProcess('security policy', "secedit /configure ($($accountSet.Count) account, $($rightSet.Count) rights)")) {
-            & secedit.exe /configure /db $db /cfg $inf /areas SECURITYPOLICY USER_RIGHTS /quiet | Out-Null
-            if ($LASTEXITCODE -ne 0) { Write-Warning "secedit /configure returned $LASTEXITCODE (see %windir%\security\logs\scesrv.log)" }
+            foreach ($k in $accountSet.Keys) { $tried["Account|$k"] = $true }
+            foreach ($k in $rightSet.Keys) { $tried["Right|$k"] = $true }
+            $code = Invoke-SecEditConfigure $inf
+            if ($code -ne 0) { Write-Warning "secedit /configure returned $code (see %windir%\security\logs\scesrv.log)" }
         }
         Remove-Item $inf -ErrorAction SilentlyContinue
     }
-    if (-not $WhatIfPreference) { foreach ($x in $report | Where-Object State -eq 'DIFF') { $x.State = 'APPLIED' } }
+    # read the settings back: APPLIED only if the system now really complies, otherwise FAILED
+    if ($tried.Count) {
+        $script:AuditTable = $null
+        Export-SecPolicy $tmp
+        $after = Read-Ini $tmp
+        for ($i = 0; $i -lt $rows.Count; $i++) {
+            $line = $report[$i]
+            if ($line.State -eq 'DIFF' -and $tried["$($line.Type)|$($line.Setting)"]) {
+                $line.State = if ((Get-RowResult $rows[$i] $after).Ok) { 'APPLIED' } else { 'FAILED' }
+            }
+        }
+    }
 }
 Remove-Item $tmp -ErrorAction SilentlyContinue
 
 $report | Format-Table -AutoSize
 Write-Host (($report | Group-Object State | ForEach-Object { "$($_.Name): $($_.Count)" }) -join ' | ') -ForegroundColor Cyan
+$notApplied = @($report | Where-Object State -eq 'FAILED').Count
+if ($notApplied) { Write-Warning "$notApplied setting(s) were not applied - see the FAILED rows." }
