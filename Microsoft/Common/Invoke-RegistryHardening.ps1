@@ -71,7 +71,10 @@ if ($Mode -eq 'Apply') { $BackupFile = Join-Path $PSScriptRoot ('backup-{0:yyyyM
 foreach ($r in $rows) {
     $want = if ($r.Type -eq 'DWord') { [int]$r.Value } else { $r.Value }
     $cur = Get-Current $r.Path $r.Name
-    $ok = ($null -ne $cur) -and ("$cur" -eq "$want")
+    # the type must match too: the text "1" is not the DWord 1
+    $kind = if ($null -ne $cur) { "$((Get-Item -LiteralPath "Registry::$($r.Path)").GetValueKind($r.Name))" }
+    $ok = ($null -ne $cur) -and ($kind -eq $r.Type) -and ("$cur" -eq "$want")
+    $shown = if ($null -ne $cur -and $kind -ne $r.Type) { "$cur ($kind, not $($r.Type))" } else { $cur }
     $state = if ($ok) { 'OK' } else { 'DIFF' }
     if (-not $ok -and $Mode -eq 'Apply' -and $PSCmdlet.ShouldProcess("$($r.Path)\$($r.Name)", "Set $want")) {
         # save the old value to disk BEFORE changing it, so an interrupted Apply can still be rolled back.
@@ -92,7 +95,7 @@ foreach ($r in $rows) {
         New-ItemProperty -LiteralPath $key -Name $r.Name -Value $want -PropertyType $r.Type -Force | Out-Null
         $state = 'APPLIED'
     }
-    $report += [pscustomobject]@{ Id = $r.Id; Sev = $r.Severity; State = $state; Current = $cur; Wanted = $want; Setting = $r.Name; Description = $r.Description }
+    $report += [pscustomobject]@{ Id = $r.Id; Sev = $r.Severity; State = $state; Current = $shown; Wanted = $want; Setting = $r.Name; Description = $r.Description }
 }
 $report | Format-Table -AutoSize
 Write-Host (($report | Group-Object State | ForEach-Object { "$($_.Name): $($_.Count)" }) -join ' | ') -ForegroundColor Cyan
