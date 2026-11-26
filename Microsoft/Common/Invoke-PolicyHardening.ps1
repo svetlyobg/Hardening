@@ -145,12 +145,15 @@ foreach ($r in $rows) {
 
 if ($Mode -eq 'Apply' -and ($auditNeed.Count + $accountSet.Count + $rightSet.Count)) {
     $BackupDir = Join-Path $PSScriptRoot ('policy-backup-{0:yyyyMMdd-HHmmss}' -f (Get-Date))
+    # no complete backup = no changes
     if ($PSCmdlet.ShouldProcess($BackupDir, 'Create backup of audit + security policy')) {
-        New-Item -ItemType Directory -Path $BackupDir | Out-Null
+        New-Item -ItemType Directory -Path $BackupDir -Confirm:$false | Out-Null
         & auditpol.exe /backup /file:"$BackupDir\audit.csv" | Out-Null
-        Copy-Item $tmp "$BackupDir\secpol.inf"
+        if ($LASTEXITCODE -ne 0 -or -not (Test-Path -LiteralPath "$BackupDir\audit.csv")) { throw "auditpol /backup failed (exit $LASTEXITCODE) - nothing was changed." }
+        Copy-Item -LiteralPath $tmp -Destination "$BackupDir\secpol.inf" -Confirm:$false
         Write-Host "Backup saved: $BackupDir" -ForegroundColor Yellow
     }
+    elseif (-not $WhatIfPreference) { throw 'Backup declined - nothing was changed.' }
     # audit policy: only switch on what is missing, never turn anything off
     foreach ($sub in $auditNeed.Keys) {
         $want = $auditNeed[$sub]

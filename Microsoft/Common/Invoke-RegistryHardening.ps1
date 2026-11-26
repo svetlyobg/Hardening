@@ -49,7 +49,11 @@ if ($Mode -eq 'Rollback') {
         }
         elseif ($PSCmdlet.ShouldProcess("$($b.Path)\$($b.Name)", "Restore $($b.Old)")) {
             if (-not (Test-Path -LiteralPath $key)) { New-Item -Path $key -Force | Out-Null }
-            New-ItemProperty -LiteralPath $key -Name $b.Name -Value $b.Old -PropertyType $b.Type -Force | Out-Null
+            # JSON turns arrays into generic ones - give them back their registry type
+            $old = $b.Old
+            if ($b.Type -in 'Binary', 'None') { $old = [byte[]]@($b.Old) }
+            elseif ($b.Type -eq 'MultiString') { $old = [string[]]@($b.Old) }
+            New-ItemProperty -LiteralPath $key -Name $b.Name -Value $old -PropertyType $b.Type -Force | Out-Null
         }
     }
     Write-Host 'Rollback done.' -ForegroundColor Green
@@ -72,11 +76,18 @@ foreach ($r in $rows) {
     if (-not $ok -and $Mode -eq 'Apply' -and $PSCmdlet.ShouldProcess("$($r.Path)\$($r.Name)", "Set $want")) {
         # save the old value to disk BEFORE changing it, so an interrupted Apply can still be rolled back.
         # Write to a temp file and swap it in, so the existing backup is never left half-written.
-        $backup += [pscustomobject]@{ Path = $r.Path; Name = $r.Name; Type = $r.Type; Old = $cur }
+        # Keep the ORIGINAL type and the raw (unexpanded) value. For a value that does not exist yet, Old stays null.
+        $key = "Registry::$($r.Path)"
+        $old = $null; $oldType = $r.Type
+        $item = if (Test-Path -LiteralPath $key) { Get-Item -LiteralPath $key }
+        if ($item -and $item.GetValueNames() -contains $r.Name) {
+            $oldType = "$($item.GetValueKind($r.Name))"
+            $old = $item.GetValue($r.Name, $null, 'DoNotExpandEnvironmentNames')
+        }
+        $backup += [pscustomobject]@{ Path = $r.Path; Name = $r.Name; Type = $oldType; Old = $old }
         ConvertTo-Json -InputObject $backup | Set-Content -LiteralPath "$BackupFile.tmp" -Encoding UTF8 -Confirm:$false
         Move-Item -LiteralPath "$BackupFile.tmp" -Destination $BackupFile -Force -Confirm:$false
         if ($backup.Count -eq 1) { Write-Host "Backup file: $BackupFile  (undo with -Mode Rollback -BackupFile ...)" -ForegroundColor Yellow }
-        $key = "Registry::$($r.Path)"
         if (-not (Test-Path -LiteralPath $key)) { New-Item -Path $key -Force | Out-Null }
         New-ItemProperty -LiteralPath $key -Name $r.Name -Value $want -PropertyType $r.Type -Force | Out-Null
         $state = 'APPLIED'
